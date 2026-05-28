@@ -125,6 +125,23 @@ function Home() {
           </div>
         </div>
 
+        {/* slide indicators + caption */}
+        <div className="absolute bottom-28 md:bottom-32 left-0 right-0 z-20 mx-auto max-w-7xl px-6 md:px-12 lg:px-20 flex items-center justify-between gap-6">
+          <p key={slide} className="text-bone/85 text-xs md:text-sm tracking-[0.3em] uppercase animate-float-up">
+            {heroSlides[slide].caption}
+          </p>
+          <div className="flex items-center gap-2">
+            {heroSlides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setSlide(i)}
+                aria-label={`Show slide ${i + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-500 ${i === slide ? "w-10 bg-bone" : "w-4 bg-bone/40 hover:bg-bone/70"}`}
+              />
+            ))}
+          </div>
+        </div>
+
         {/* organic bottom edge */}
         <svg className="absolute bottom-[-1px] left-0 w-full text-background" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden>
           <path fill="currentColor" d="M0,80 C240,140 480,20 720,60 C960,100 1200,40 1440,80 L1440,120 L0,120 Z" />
