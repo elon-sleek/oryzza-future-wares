@@ -1,7 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import logoWhite from "@/assets/oryzza-logo-white.png";
 import logoGreen from "@/assets/oryzza-logo-green.png";
 import heroNature from "@/assets/hero-nature.jpg";
+import heroDehusking from "@/assets/hero-dehusking.jpg";
+import heroSawdust from "@/assets/hero-sawdust.jpg";
+import heroBagasse from "@/assets/hero-bagasse.jpg";
+import heroWares from "@/assets/hero-wares.jpg";
 import tableware from "@/assets/tableware-set.jpg";
 import bowlDetail from "@/assets/bowl-detail.jpg";
 import agroWaste from "@/assets/agro-waste.jpg";
@@ -35,7 +40,21 @@ function Section({ id, children, className = "" }: { id?: string; children: Reac
   );
 }
 
+const heroSlides = [
+  { src: heroNature, alt: "Lush rainforest canopy", caption: "The forest we protect" },
+  { src: heroDehusking, alt: "Farmers dehusking rice at golden hour", caption: "Farmers dehusking rice" },
+  { src: heroSawdust, alt: "Mounds of pale sawdust at a sawmill", caption: "Mounts of sawdust" },
+  { src: heroBagasse, alt: "Golden wheat bagasse stacked in a processing yard", caption: "Bagasse from wheat" },
+  { src: heroWares, alt: "Wooden plates and spoons made from agro-fibre", caption: "Wares from the waste" },
+];
+
 function Home() {
+  const [slide, setSlide] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 5000);
+    return () => clearInterval(t);
+  }, []);
+
   const materials = [
     "Rice husks", "Sawdust", "Sugarcane bagasse",
     "Coconut coir", "Corn husks", "Palm-kernel fiber",
@@ -53,7 +72,9 @@ function Home() {
       {/* NAV */}
       <header className="absolute top-0 left-0 right-0 z-30">
         <nav className="mx-auto max-w-7xl flex items-center justify-between px-6 md:px-12 lg:px-20 py-6">
-          <img src={logoWhite} alt="Oryzza" className="h-9 md:h-10 w-auto" />
+          <a href="#" className="flex items-center gap-3">
+            <img src={logoWhite} alt="Oryzza" className="h-16 md:h-20 lg:h-24 w-auto drop-shadow-[0_6px_20px_rgba(0,0,0,0.45)]" />
+          </a>
           <div className="hidden md:flex items-center gap-10 text-sm tracking-wide text-bone/90">
             <a href="#story" className="hover:text-bone transition">Story</a>
             <a href="#materials" className="hover:text-bone transition">Materials</a>
@@ -68,13 +89,17 @@ function Home() {
 
       {/* HERO */}
       <section className="relative min-h-screen w-full overflow-hidden">
-        <img
-          src={heroNature}
-          alt="Lush rainforest canopy"
-          className="absolute inset-0 h-full w-full object-cover"
-          width={1920}
-          height={1080}
-        />
+        {heroSlides.map((s, i) => (
+          <img
+            key={s.src}
+            src={s.src}
+            alt={s.alt}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1800ms] ease-in-out ${i === slide ? "opacity-100" : "opacity-0"}`}
+            width={1920}
+            height={1080}
+            loading={i === 0 ? "eager" : "lazy"}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/40 to-primary/85" />
         <div className="absolute -right-32 top-1/4 w-[420px] h-[420px] blob-1 animate-blob bg-bone/10 backdrop-blur-sm hidden md:block" />
 
@@ -97,6 +122,23 @@ function Home() {
             <a href="#materials" className="rounded-full border border-bone/40 text-bone px-7 py-3.5 text-sm tracking-wide hover:bg-bone/10 transition">
               See the materials
             </a>
+          </div>
+        </div>
+
+        {/* slide indicators + caption */}
+        <div className="absolute bottom-28 md:bottom-32 left-0 right-0 z-20 mx-auto max-w-7xl px-6 md:px-12 lg:px-20 flex items-center justify-between gap-6">
+          <p key={slide} className="text-bone/85 text-xs md:text-sm tracking-[0.3em] uppercase animate-float-up">
+            {heroSlides[slide].caption}
+          </p>
+          <div className="flex items-center gap-2">
+            {heroSlides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setSlide(i)}
+                aria-label={`Show slide ${i + 1}`}
+                className={`h-1.5 rounded-full transition-all duration-500 ${i === slide ? "w-10 bg-bone" : "w-4 bg-bone/40 hover:bg-bone/70"}`}
+              />
+            ))}
           </div>
         </div>
 
