@@ -89,13 +89,17 @@ function Home() {
 
       {/* HERO */}
       <section className="relative min-h-screen w-full overflow-hidden">
-        <img
-          src={heroNature}
-          alt="Lush rainforest canopy"
-          className="absolute inset-0 h-full w-full object-cover"
-          width={1920}
-          height={1080}
-        />
+        {heroSlides.map((s, i) => (
+          <img
+            key={s.src}
+            src={s.src}
+            alt={s.alt}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[1800ms] ease-in-out ${i === slide ? "opacity-100" : "opacity-0"}`}
+            width={1920}
+            height={1080}
+            loading={i === 0 ? "eager" : "lazy"}
+          />
+        ))}
         <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/40 to-primary/85" />
         <div className="absolute -right-32 top-1/4 w-[420px] h-[420px] blob-1 animate-blob bg-bone/10 backdrop-blur-sm hidden md:block" />
 
