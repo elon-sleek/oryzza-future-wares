@@ -1,7 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import logoWhite from "@/assets/oryzza-logo-white.png";
 import logoGreen from "@/assets/oryzza-logo-green.png";
 import heroNature from "@/assets/hero-nature.jpg";
+import heroDehusking from "@/assets/hero-dehusking.jpg";
+import heroSawdust from "@/assets/hero-sawdust.jpg";
+import heroBagasse from "@/assets/hero-bagasse.jpg";
+import heroWares from "@/assets/hero-wares.jpg";
 import tableware from "@/assets/tableware-set.jpg";
 import bowlDetail from "@/assets/bowl-detail.jpg";
 import agroWaste from "@/assets/agro-waste.jpg";
