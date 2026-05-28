@@ -72,7 +72,9 @@ function Home() {
       {/* NAV */}
       <header className="absolute top-0 left-0 right-0 z-30">
         <nav className="mx-auto max-w-7xl flex items-center justify-between px-6 md:px-12 lg:px-20 py-6">
-          <img src={logoWhite} alt="Oryzza" className="h-9 md:h-10 w-auto" />
+          <a href="#" className="flex items-center gap-3">
+            <img src={logoWhite} alt="Oryzza" className="h-16 md:h-20 lg:h-24 w-auto drop-shadow-[0_6px_20px_rgba(0,0,0,0.45)]" />
+          </a>
           <div className="hidden md:flex items-center gap-10 text-sm tracking-wide text-bone/90">
             <a href="#story" className="hover:text-bone transition">Story</a>
             <a href="#materials" className="hover:text-bone transition">Materials</a>
