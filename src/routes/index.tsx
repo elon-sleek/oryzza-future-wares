@@ -40,7 +40,21 @@ function Section({ id, children, className = "" }: { id?: string; children: Reac
   );
 }
 
+const heroSlides = [
+  { src: heroNature, alt: "Lush rainforest canopy", caption: "The forest we protect" },
+  { src: heroDehusking, alt: "Farmers dehusking rice at golden hour", caption: "Farmers dehusking rice" },
+  { src: heroSawdust, alt: "Mounds of pale sawdust at a sawmill", caption: "Mounts of sawdust" },
+  { src: heroBagasse, alt: "Golden wheat bagasse stacked in a processing yard", caption: "Bagasse from wheat" },
+  { src: heroWares, alt: "Wooden plates and spoons made from agro-fibre", caption: "Wares from the waste" },
+];
+
 function Home() {
+  const [slide, setSlide] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 5000);
+    return () => clearInterval(t);
+  }, []);
+
   const materials = [
     "Rice husks", "Sawdust", "Sugarcane bagasse",
     "Coconut coir", "Corn husks", "Palm-kernel fiber",
