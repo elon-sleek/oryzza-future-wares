@@ -72,16 +72,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Oryzza - Wares of the Future" },
+      { name: "description", content: "Sustainable wares from agricultural waste" },
+      { name: "author", content: "Oryzza" },
+      { property: "og:title", content: "Oryzza - Wares of the Future" },
+      { property: "og:description", content: "Sustainable wares from agricultural waste" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      {
+        rel: "icon",
+        href: "/oryzza-green.png",
+        type: "image/png",
+      },
       {
         rel: "stylesheet",
         href: appCss,

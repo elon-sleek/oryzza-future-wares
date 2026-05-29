@@ -163,20 +163,20 @@ function Home() {
           <div className="md:col-span-7 md:pl-8">
             <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">The Problem</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary leading-[1.05]">
-              We grow enough to feed every mouth — yet hold the food in things that may hurt us before the next meal.
+              Africa is choking on plastic, while burning the very fibres that could replace it.
             </h2>
             <div className="mt-8 space-y-5 text-base md:text-lg text-foreground/80 max-w-2xl leading-relaxed">
               <p>
-                Africa's farms and mills produce over
-                <span className="text-primary font-medium"> 230 million tonnes</span> of processing waste every year —
-                husks, hulls, dust and fibre — most of it set ablaze in open fields, releasing CO₂, methane and soot
-                into the lungs of the cities downwind.
+                Across our continent, a population racing past 1.5 billion generates over
+                <span className="text-primary font-medium"> 230 million tonnes</span> of agricultural residue every year.
+                Most of it is set ablaze in open fields — releasing CO₂, methane and soot into the lungs of the
+                cities downwind.
               </p>
               <p>
-                And here is the quiet irony: while we labour to feed every mouth, we never thought to use the waste from
-                the food to <em>hold</em> the food. Instead, we reach for the styrofoam plate and the plastic spoon —
-                conveniences that outlive the meal by four centuries, breaking into the soils and rivers our farmers
-                depend on, and into us, before the next meal is served.
+                Meanwhile as we develop innovative foodprocessing methods to feed a billion mouths, we almost never thought 
+                to use the waste from the food to <em>hold and consume</em> the food. Instead, we reach for the styrofoam plates 
+                and the single-use plastic spoons — conveniences that outlive the meal by four centuries, breaking into the soils 
+                and rivers our farmers depend on, and into us, before the next meal is served.
               </p>
               <p className="text-primary font-display text-2xl italic">
                 Oryzza closes that loop.
@@ -305,7 +305,7 @@ function Home() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 mt-4 rounded-full bg-bone text-primary px-7 py-3.5 text-sm tracking-wide hover:bg-bone/90 transition"
             >
-              Start a conversation on WhatsApp →
+              Start a conversation →
             </a>
           </div>
         </div>
