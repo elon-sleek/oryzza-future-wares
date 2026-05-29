@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/gridga79/public_html/oryzza.com.ng
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -R *.html assets css js $DEPLOYPATH
+    - /bin/cp -R dist/* $DEPLOYPATH
