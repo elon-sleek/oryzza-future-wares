@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { Droplets, Recycle, CloudSun, Trees } from "lucide-react";
 import logoWhite from "@/assets/oryzza-logo-white.png";
 import logoGreen from "@/assets/oryzza-logo-green.png";
 import heroNature from "@/assets/hero-nature.jpg";
-import heroDehusking from "@/assets/hero-dehusking.jpg";
+import heroRicehusk from "@/assets/hero-ricehusk.jpg";
 import heroSawdust from "@/assets/hero-sawdust.jpg";
-import heroBagasse from "@/assets/hero-bagasse.jpg";
+import heroCornhusks from "@/assets/hero-cornhusks.jpg";
 import heroWares from "@/assets/hero-wares.jpg";
 import tableware from "@/assets/tableware-set.jpg";
 import bowlDetail from "@/assets/bowl-detail.jpg";
@@ -18,13 +19,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Oryzza engineers agro-waste like rice husks, sawdust and coconut coir into beautiful, biodegradable tableware. Wares of the future, made in Aba.",
+          "Oryzza engineers agro-processing waste — rice husks, sawdust, bagasse, coconut coir — into single-use tableware that returns to the earth.",
       },
       { property: "og:title", content: "Oryzza — Wares of the Future" },
       {
         property: "og:description",
         content:
-          "Biodegradable tableware engineered from African agro-waste. Cutting CO₂, plastic and water — one ware at a time.",
+          "Biodegradable single-use tableware engineered from Nigerian agro-processing waste.",
       },
       { property: "og:image", content: heroNature },
     ],
@@ -41,12 +42,15 @@ function Section({ id, children, className = "" }: { id?: string; children: Reac
 }
 
 const heroSlides = [
-  { src: heroNature, alt: "Lush rainforest canopy", caption: "The forest we protect" },
-  { src: heroDehusking, alt: "Farmers dehusking rice at golden hour", caption: "Farmers dehusking rice" },
-  { src: heroSawdust, alt: "Mounds of pale sawdust at a sawmill", caption: "Mounts of sawdust" },
-  { src: heroBagasse, alt: "Golden wheat bagasse stacked in a processing yard", caption: "Bagasse from wheat" },
-  { src: heroWares, alt: "Wooden plates and spoons made from agro-fibre", caption: "Wares from the waste" },
+  { src: heroRicehusk, alt: "Rice husk mounds beside a paddy field" },
+  { src: heroSawdust, alt: "Sawdust piles at a sawmill at the forest edge" },
+  { src: heroCornhusks, alt: "Corn field at harvest with dry husks" },
+  { src: heroWares, alt: "Single-use plates, trays and cutlery moulded from agro-fibre" },
+  { src: heroNature, alt: "Lush rainforest canopy in morning mist" },
 ];
+
+const WHATSAPP_URL = "https://wa.me/2347054667373?text=Hello%20Oryzza%2C%20I%27d%20like%20to%20talk.";
+const EMAIL = "hello@oryzza.com.ng";
 
 function Home() {
   const [slide, setSlide] = useState(0);
@@ -56,15 +60,15 @@ function Home() {
   }, []);
 
   const materials = [
-    "Rice husks", "Sawdust", "Sugarcane bagasse",
+    "Rice husks", "Sawdust", "Bagasse",
     "Coconut coir", "Corn husks", "Palm-kernel fiber",
   ];
 
   const goals = [
-    { n: "12", t: "Responsible Consumption", d: "Replacing single-use plastics with compostable wares crafted from waste streams." },
-    { n: "13", t: "Climate Action", d: "Every ware diverts crop residue from open burning — locking carbon, not releasing it." },
-    { n: "06", t: "Clean Water", d: "Our cold-press process uses up to 80% less water than conventional moulded fibre lines." },
-    { n: "15", t: "Life on Land", d: "Zero virgin-tree pulp. Zero petrochemicals. Soil-safe at end-of-life." },
+    { n: "06", t: "Clean Water & Sanitation", d: "Our cold-press process uses up to 80% less water than conventional moulded-fibre lines.", Icon: Droplets },
+    { n: "12", t: "Responsible Consumption", d: "Replacing single-use plastics with compostable wares crafted from waste streams.", Icon: Recycle },
+    { n: "13", t: "Climate Action", d: "Every ware diverts crop residue from open burning — locking carbon, not releasing it.", Icon: CloudSun },
+    { n: "15", t: "Life on Land", d: "Zero virgin-tree pulp. Zero petrochemicals. Soil-safe at end-of-life.", Icon: Trees },
   ];
 
   return (
@@ -104,16 +108,13 @@ function Home() {
         <div className="absolute -right-32 top-1/4 w-[420px] h-[420px] blob-1 animate-blob bg-bone/10 backdrop-blur-sm hidden md:block" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-20 pt-40 md:pt-48 pb-24">
-          <p className="text-bone/80 tracking-[0.35em] text-xs uppercase mb-6 animate-float-up">
-            Aba · Abia State · Nigeria
-          </p>
           <h1 className="font-display text-bone text-shadow-hero text-[3.4rem] leading-[0.95] md:text-[6.5rem] lg:text-[8rem] animate-float-up">
             Wares of <br />
             <span className="italic">the future.</span>
           </h1>
           <div className="mt-10 max-w-xl text-bone/90 text-lg leading-relaxed animate-float-up">
-            Oryzza engineers the harvest's leftovers — rice husks, sawdust, bagasse, coconut coir —
-            into utensils and tableware that return to the earth as quietly as they came.
+            Oryzza engineers the waste of agro-processing — rice husks, sawdust, bagasse, coconut coir —
+            into single-use utensils and tableware that return to the earth as quietly as they came.
           </div>
           <div className="mt-10 flex flex-wrap items-center gap-4 animate-float-up">
             <a href="#story" className="rounded-full bg-bone text-primary px-7 py-3.5 text-sm tracking-wide hover:bg-bone/90 transition">
@@ -125,11 +126,8 @@ function Home() {
           </div>
         </div>
 
-        {/* slide indicators + caption */}
-        <div className="absolute bottom-28 md:bottom-32 left-0 right-0 z-20 mx-auto max-w-7xl px-6 md:px-12 lg:px-20 flex items-center justify-between gap-6">
-          <p key={slide} className="text-bone/85 text-xs md:text-sm tracking-[0.3em] uppercase animate-float-up">
-            {heroSlides[slide].caption}
-          </p>
+        {/* slide indicators */}
+        <div className="absolute bottom-28 md:bottom-32 left-0 right-0 z-20 mx-auto max-w-7xl px-6 md:px-12 lg:px-20 flex items-center justify-end">
           <div className="flex items-center gap-2">
             {heroSlides.map((_, i) => (
               <button
@@ -148,7 +146,7 @@ function Home() {
         </svg>
       </section>
 
-      {/* STORY — single-use plastics in Africa */}
+      {/* STORY */}
       <Section id="story">
         <div className="grid md:grid-cols-12 gap-12 items-center">
           <div className="md:col-span-5 relative">
@@ -165,18 +163,20 @@ function Home() {
           <div className="md:col-span-7 md:pl-8">
             <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">The Problem</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary leading-[1.05]">
-              Africa is choking on plastic, while burning the very fibres that could replace it.
+              We grow enough to feed every mouth — yet hold the food in things that may hurt us before the next meal.
             </h2>
             <div className="mt-8 space-y-5 text-base md:text-lg text-foreground/80 max-w-2xl leading-relaxed">
               <p>
-                Across our continent, a population racing past 1.5 billion generates over
-                <span className="text-primary font-medium"> 230 million tonnes</span> of agricultural residue every year.
-                Most of it is set ablaze in open fields — releasing CO₂, methane and soot into the lungs of the
-                cities downwind.
+                Africa's farms and mills produce over
+                <span className="text-primary font-medium"> 230 million tonnes</span> of processing waste every year —
+                husks, hulls, dust and fibre — most of it set ablaze in open fields, releasing CO₂, methane and soot
+                into the lungs of the cities downwind.
               </p>
               <p>
-                At the same time, the single-use plastic spoon, the sachet, the styrofoam plate — they outlive the
-                meal by four centuries, breaking into the soils and rivers our farmers depend on.
+                And here is the quiet irony: while we labour to feed every mouth, we never thought to use the waste from
+                the food to <em>hold</em> the food. Instead, we reach for the styrofoam plate and the plastic spoon —
+                conveniences that outlive the meal by four centuries, breaking into the soils and rivers our farmers
+                depend on, and into us, before the next meal is served.
               </p>
               <p className="text-primary font-display text-2xl italic">
                 Oryzza closes that loop.
@@ -195,7 +195,7 @@ function Home() {
               Six humble fibres. <br /><span className="italic">One quiet revolution.</span>
             </h2>
             <p className="mt-6 text-bone/80 text-lg max-w-xl">
-              We source from rice mills, sawmills, palm processors and smallholder farms across South-East Nigeria —
+              We source from rice mills, sawmills, palm processors and smallholder farms across Nigeria —
               paying for what was once burned away.
             </p>
             <ul className="mt-10 grid grid-cols-2 gap-x-6 gap-y-3">
@@ -210,7 +210,7 @@ function Home() {
           <div className="md:col-span-6 order-1 md:order-2 relative">
             <img
               src={tableware}
-              alt="Wooden biodegradable tableware set"
+              alt="Single-use biodegradable tableware set moulded from agro-fibre"
               loading="lazy"
               width={1024}
               height={1024}
@@ -236,16 +236,25 @@ function Home() {
         </div>
 
         <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {goals.map((g, i) => (
-            <article
-              key={g.n}
-              className={`relative p-8 bg-card text-card-foreground border border-border ${i % 2 === 0 ? "blob-2" : "blob-1"} hover:-translate-y-1 transition duration-500 shadow-soft`}
-            >
-              <div className="text-6xl font-display text-accent/80 mb-3">{g.n}</div>
-              <h3 className="text-2xl text-primary mb-3">{g.t}</h3>
-              <p className="text-foreground/70 text-sm leading-relaxed">{g.d}</p>
-            </article>
-          ))}
+          {goals.map((g, i) => {
+            const Icon = g.Icon;
+            return (
+              <article
+                key={g.n}
+                className={`relative p-8 bg-card text-card-foreground border border-border ${i % 2 === 0 ? "blob-2" : "blob-1"} hover:-translate-y-1 transition duration-500 shadow-soft`}
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary text-bone">
+                    <Icon className="w-6 h-6" aria-hidden />
+                  </span>
+                  <span className="text-xs uppercase tracking-[0.25em] text-foreground/60">SDG {g.n}</span>
+                </div>
+                <div className="text-6xl font-display text-accent/80 mb-3">{g.n}</div>
+                <h3 className="text-2xl text-primary mb-3">{g.t}</h3>
+                <p className="text-foreground/70 text-sm leading-relaxed">{g.d}</p>
+              </article>
+            );
+          })}
         </div>
 
         {/* impact stats */}
@@ -286,15 +295,17 @@ function Home() {
             </div>
             <div>
               <p className="text-bone/60 text-xs uppercase tracking-[0.25em] mb-2">Email</p>
-              <a href="mailto:oryzza@gmail.com" className="text-xl underline decoration-bone/40 underline-offset-4 hover:decoration-bone">
-                oryzza@gmail.com
+              <a href={`mailto:${EMAIL}`} className="text-xl underline decoration-bone/40 underline-offset-4 hover:decoration-bone">
+                {EMAIL}
               </a>
             </div>
             <a
-              href="mailto:oryzza@gmail.com"
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-3 mt-4 rounded-full bg-bone text-primary px-7 py-3.5 text-sm tracking-wide hover:bg-bone/90 transition"
             >
-              Start a conversation →
+              Start a conversation on WhatsApp →
             </a>
           </div>
         </div>
