@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Droplets, Recycle, CloudSun, Trees } from "lucide-react";
 import logoWhite from "@/assets/oryzza-logo-white.png";
@@ -11,27 +10,6 @@ import heroWares from "@/assets/hero-wares.jpg";
 import tableware from "@/assets/tableware-set.jpg";
 import bowlDetail from "@/assets/bowl-detail.jpg";
 import agroWaste from "@/assets/agro-waste.jpg";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Oryzza — Wares of the Future" },
-      {
-        name: "description",
-        content:
-          "Oryzza engineers agro-processing waste — rice husks, sawdust, bagasse, coconut coir — into single-use tableware that returns to the earth.",
-      },
-      { property: "og:title", content: "Oryzza — Wares of the Future" },
-      {
-        property: "og:description",
-        content:
-          "Biodegradable single-use tableware engineered from Nigerian agro-processing waste.",
-      },
-      { property: "og:image", content: heroNature },
-    ],
-  }),
-  component: Home,
-});
 
 function Section({ id, children, className = "" }: { id?: string; children: React.ReactNode; className?: string }) {
   return (
@@ -52,7 +30,7 @@ const heroSlides = [
 const WHATSAPP_URL = "https://wa.me/2347054667373?text=Hello%20Oryzza%2C%20I%27d%20like%20to%20talk.";
 const EMAIL = "hello@oryzza.com.ng";
 
-function Home() {
+export default function Home() {
   const [slide, setSlide] = useState(0);
   useEffect(() => {
     const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 5000);
