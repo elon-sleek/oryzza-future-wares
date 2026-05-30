@@ -49,7 +49,8 @@ const heroSlides = [
   { src: heroNature, alt: "Lush rainforest canopy in morning mist" },
 ];
 
-const WHATSAPP_URL = "https://wa.me/2347054667373?text=Hello%20Oryzza%2C%20I%27d%20like%20to%20talk.";
+// Use the official WhatsApp send endpoint to reliably open chats across platforms
+const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=2347054667373";
 const EMAIL = "hello@oryzza.com.ng";
 
 function Home() {
