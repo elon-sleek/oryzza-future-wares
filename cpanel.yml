@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/gridga79/public_html/oryzza.com.ng
-    - /bin/cp -R dist/* $DEPLOYPATH
+    - export DEPLOYPATH=/home/gridga79/oryzza-server
+    - /usr/bin/rsync -avz --delete * $DEPLOYPATH
