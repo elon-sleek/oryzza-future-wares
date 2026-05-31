@@ -257,9 +257,19 @@ export default function Home() {
           </div>
         </div>
 
-        {/* organic bottom edge */}
-        <svg className="absolute bottom-[-1px] left-0 w-full text-background" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden>
-          <path fill="currentColor" d="M0,80 C240,140 480,20 720,60 C960,100 1200,40 1440,80 L1440,120 L0,120 Z" />
+        {/* organic bottom edge — slow wave */}
+        <svg className="absolute bottom-[-1px] left-0 w-full text-background overflow-hidden" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden>
+          <path fill="currentColor">
+            <animate
+              attributeName="d"
+              dur="12s"
+              repeatCount="indefinite"
+              values="
+                M0,80 C240,140 480,20 720,60 C960,100 1200,40 1440,80 L1440,120 L0,120 Z;
+                M0,60 C240,30 480,110 720,80 C960,50 1200,100 1440,60 L1440,120 L0,120 Z;
+                M0,80 C240,140 480,20 720,60 C960,100 1200,40 1440,80 L1440,120 L0,120 Z"
+            />
+          </path>
         </svg>
       </section>
 
