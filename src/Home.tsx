@@ -110,10 +110,50 @@ export default function Home() {
   const [slide, setSlide] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 5000);
     return () => clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    let isWrapping = false;
+
+    const handleScroll = () => {
+      if (isWrapping) return;
+
+      const scrollLeft = carousel.scrollLeft;
+      const scrollWidth = carousel.scrollWidth;
+      const clientWidth = carousel.clientWidth;
+      const maxScroll = scrollWidth - clientWidth;
+      const oneSetWidth = scrollWidth / 3;
+
+      if (scrollLeft >= maxScroll - 200) {
+        isWrapping = true;
+        carousel.scrollLeft = oneSetWidth;
+        setTimeout(() => {
+          isWrapping = false;
+        }, 50);
+      } else if (scrollLeft < 100) {
+        isWrapping = true;
+        carousel.scrollLeft = oneSetWidth - 100;
+        setTimeout(() => {
+          isWrapping = false;
+        }, 50);
+      }
+    };
+
+    setTimeout(() => {
+      const oneSetWidth = carousel.scrollWidth / 5;
+      carousel.scrollLeft = oneSetWidth;
+    }, 100);
+
+    carousel.addEventListener("scroll", handleScroll);
+    return () => carousel.removeEventListener("scroll", handleScroll);
   }, []);
 
   const materials = [
@@ -362,11 +402,11 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="mt-14 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        <div ref={carouselRef} className="mt-14 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex min-w-max">
-            {products.map(({ name, Icon, tint }) => (
+            {[...products, ...products, ...products].map(({ name, Icon, tint }, idx) => (
               <article
-                key={name}
+                key={`${name}-${idx}`}
                 className={`relative ${tint} text-bone snap-start shrink-0 w-[78vw] sm:w-[42vw] md:w-[28vw] lg:w-[22vw] h-[360px] md:h-[440px] overflow-hidden group`}
               >
                 {/* faded background icon "sketch" */}
