@@ -1,5 +1,8 @@
-import { useEffect, useState } from "react";
-import { Droplets, Recycle, CloudSun, Trees } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import {
+  Droplets, Recycle, CloudSun, Trees, Menu, X as XClose,
+  Utensils, IceCream, Coffee, UtensilsCrossed, CircleDot, Layers, Soup,
+} from "lucide-react";
 import logoWhite from "@/assets/oryzza-logo-white.png";
 import logoGreen from "@/assets/oryzza-logo-green.png";
 import heroNature from "@/assets/hero-nature.jpg";
@@ -28,10 +31,86 @@ const heroSlides = [
 ];
 
 const WHATSAPP_URL = "https://wa.me/2347054667373?text=Hello%20Oryzza%2C%20I%27d%20like%20to%20talk.";
+const X_URL = "https://x.com/oryzzawares";
 const EMAIL = "hello@oryzza.com.ng";
+
+// X (Twitter) icon — lucide doesn't ship the new X glyph
+function XLogo({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className={className} fill="currentColor">
+      <path d="M18.244 2H21l-6.52 7.45L22.5 22h-6.94l-4.7-6.2L5.4 22H2.64l6.98-7.98L1.5 2h7.12l4.25 5.66L18.24 2Zm-1.22 18.4h1.55L7.06 3.5H5.41l11.62 16.9Z" />
+    </svg>
+  );
+}
+
+function useCountUp(target: number, decimals = 0, duration = 1600) {
+  const [val, setVal] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting && !started.current) {
+          started.current = true;
+          const start = performance.now();
+          const tick = (now: number) => {
+            const p = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - p, 3);
+            setVal(target * eased);
+            if (p < 1) requestAnimationFrame(tick);
+            else setVal(target);
+          };
+          requestAnimationFrame(tick);
+        }
+      });
+    }, { threshold: 0.4 });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [target, duration]);
+  return { ref, display: decimals ? val.toFixed(decimals) : Math.round(val).toString() };
+}
+
+function Stat({ value, suffix = "", decimals = 0, label }: { value: number; suffix?: string; decimals?: number; label: string }) {
+  const { ref, display } = useCountUp(value, decimals);
+  return (
+    <div>
+      <div className="text-5xl md:text-6xl font-display text-primary">
+        <span ref={ref}>{display}</span>{suffix}
+      </div>
+      <p className="mt-3 text-foreground/70 max-w-xs">{label}</p>
+    </div>
+  );
+}
+
+const products = [
+  { name: "Single-use plates", Icon: Layers,         tint: "bg-[oklch(0.55_0.12_135)]" },
+  { name: "Ice cream cups",    Icon: IceCream,        tint: "bg-[oklch(0.62_0.10_85)]"  },
+  { name: "Spoons",            Icon: Utensils,        tint: "bg-[oklch(0.42_0.10_138)]" },
+  { name: "Trays",             Icon: Soup,            tint: "bg-[oklch(0.50_0.09_60)]"  },
+  { name: "Forks",             Icon: UtensilsCrossed, tint: "bg-[oklch(0.58_0.11_150)]" },
+  { name: "Bottle caps",       Icon: CircleDot,       tint: "bg-[oklch(0.36_0.07_120)]" },
+  { name: "Coffee lids",       Icon: Coffee,          tint: "bg-[oklch(0.45_0.08_45)]"  },
+];
+
+const faqs = [
+  { q: "How is Oryzza ware different from paper or bagasse plates I've seen before?",
+    a: "We blend multiple agro-fibres — rice husk, sawdust, bagasse, coir — and cold-press them. The result is sturdier than paper, holds heat and moisture longer, and uses up to 80% less water in production." },
+  { q: "Will it actually compost in my backyard?",
+    a: "Yes. Every ware is 100% biodegradable and home-compostable in 60–90 days. No industrial facility needed. No microplastics left behind." },
+  { q: "Can it hold hot soup or oily food?",
+    a: "It can. Our wares are food-safe up to 100°C and naturally oil-resistant — no PFAS, no wax linings, no plastic coatings." },
+  { q: "Do you do co-branded or custom-moulded orders?",
+    a: "We do. Minimums depend on the SKU. Reach out via the form or WhatsApp and we'll send the spec sheet." },
+  { q: "Where do you ship?",
+    a: "Nationwide across Nigeria today, with West-Africa freight on request. International pilots are open by conversation." },
+];
 
 export default function Home() {
   const [slide, setSlide] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
   useEffect(() => {
     const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 5000);
     return () => clearInterval(t);
@@ -49,25 +128,85 @@ export default function Home() {
     { n: "15", t: "Life on Land", d: "Zero virgin-tree pulp. Zero petrochemicals. Soil-safe at end-of-life.", Icon: Trees },
   ];
 
+  const navLinks = [
+    { href: "#story", label: "Story" },
+    { href: "#materials", label: "Materials" },
+    { href: "#products", label: "Products" },
+    { href: "#impact", label: "Impact" },
+    { href: "#questions", label: "Questions" },
+    { href: "#contact", label: "Contact" },
+  ];
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* NAV */}
-      <header className="absolute top-0 left-0 right-0 z-30">
+      <header className="absolute top-0 left-0 right-0 z-40">
         <nav className="mx-auto max-w-7xl flex items-center justify-between px-6 md:px-12 lg:px-20 py-6">
           <a href="#" className="flex items-center gap-3">
             <img src={logoWhite} alt="Oryzza" className="h-16 md:h-20 lg:h-24 w-auto drop-shadow-[0_6px_20px_rgba(0,0,0,0.45)]" />
           </a>
-          <div className="hidden md:flex items-center gap-10 text-sm tracking-wide text-bone/90">
-            <a href="#story" className="hover:text-bone transition">Story</a>
-            <a href="#materials" className="hover:text-bone transition">Materials</a>
-            <a href="#impact" className="hover:text-bone transition">Impact</a>
-            <a href="#contact" className="hover:text-bone transition">Contact</a>
+          <div className="hidden md:flex items-center gap-8 text-sm tracking-wide text-bone/90">
+            {navLinks.map((l) => (
+              <a key={l.href} href={l.href} className="hover:text-bone transition">{l.label}</a>
+            ))}
           </div>
-          <a href="#contact" className="hidden md:inline-flex items-center gap-2 rounded-full bg-bone/95 text-primary px-5 py-2.5 text-sm font-medium hover:bg-bone transition">
-            Partner with us
-          </a>
+          <div className="hidden md:flex items-center gap-4">
+            <a href={X_URL} target="_blank" rel="noopener noreferrer" aria-label="Oryzza on X (@oryzzawares)"
+              className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-bone/40 text-bone hover:bg-bone/10 transition">
+              <XLogo className="w-3.5 h-3.5" />
+            </a>
+            <a href="#contact" className="inline-flex items-center gap-2 rounded-full bg-bone/95 text-primary px-5 py-2.5 text-sm font-medium hover:bg-bone transition">
+              Partner with us
+            </a>
+          </div>
+          <button
+            type="button"
+            onClick={() => setMenuOpen(true)}
+            aria-label="Open menu"
+            className="md:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-bone/40 text-bone hover:bg-bone/10 transition"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
         </nav>
       </header>
+
+      {/* MOBILE MENU OVERLAY */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-50 md:hidden bg-primary text-bone animate-float-up">
+          <div className="flex items-center justify-between px-6 py-6">
+            <img src={logoWhite} alt="Oryzza" className="h-14 w-auto" />
+            <button
+              type="button"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Close menu"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-bone/40 text-bone hover:bg-bone/10 transition"
+            >
+              <XClose className="w-5 h-5" />
+            </button>
+          </div>
+          <nav className="px-6 mt-6 flex flex-col gap-1">
+            {navLinks.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setMenuOpen(false)}
+                className="font-display text-4xl py-4 border-b border-bone/15"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+          <div className="px-6 mt-10 flex items-center gap-4">
+            <a href={X_URL} target="_blank" rel="noopener noreferrer" aria-label="Oryzza on X"
+              className="inline-flex items-center justify-center w-11 h-11 rounded-full border border-bone/40">
+              <XLogo className="w-4 h-4" />
+            </a>
+            <a href="#contact" onClick={() => setMenuOpen(false)} className="rounded-full bg-bone text-primary px-6 py-3 text-sm font-medium">
+              Partner with us
+            </a>
+          </div>
+        </div>
+      )}
 
       {/* HERO */}
       <section className="relative min-h-screen w-full overflow-hidden">
@@ -151,9 +290,9 @@ export default function Home() {
                 cities downwind.
               </p>
               <p>
-                Meanwhile as we develop innovative foodprocessing methods to feed a billion mouths, we almost never thought 
-                to use the waste from the food to <em>hold and consume</em> the food. Instead, we reach for the styrofoam plates 
-                and the single-use plastic spoons — conveniences that outlive the meal by four centuries, breaking into the soils 
+                Meanwhile as we develop innovative foodprocessing methods to feed a billion mouths, we almost never thought
+                to use the waste from the food to <em>hold and consume</em> the food. Instead, we reach for the styrofoam plates
+                and the single-use plastic spoons — conveniences that outlive the meal by four centuries, breaking into the soils
                 and rivers our farmers depend on, and into us, before the next meal is served.
               </p>
               <p className="text-primary font-display text-2xl italic">
@@ -201,6 +340,46 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* PRODUCTS — horizontal swipe */}
+      <Section id="products" className="!px-0">
+        <div className="px-6 md:px-12 lg:px-20 max-w-3xl">
+          <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">The Range</p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary leading-[1.05]">
+            What fibre can <span className="italic">become.</span>
+          </h2>
+          <p className="mt-6 text-foreground/70 text-lg">
+            From our agro-fibre press, an expansive family of single-use wares — each one moulded, used, and returned to soil. Swipe to explore.
+          </p>
+        </div>
+
+        <div className="mt-14 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex min-w-max">
+            {products.map(({ name, Icon, tint }) => (
+              <article
+                key={name}
+                className={`relative ${tint} text-bone snap-start shrink-0 w-[78vw] sm:w-[42vw] md:w-[28vw] lg:w-[22vw] h-[360px] md:h-[440px] overflow-hidden group`}
+              >
+                {/* faded background icon "sketch" */}
+                <Icon
+                  className="absolute -right-10 -bottom-10 w-[300px] h-[300px] text-bone/15 group-hover:text-bone/25 transition-colors duration-700"
+                  strokeWidth={1}
+                  aria-hidden
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                <div className="relative h-full flex flex-col justify-between p-7">
+                  <Icon className="w-9 h-9" strokeWidth={1.25} aria-hidden />
+                  <div>
+                    <p className="text-bone/70 text-xs uppercase tracking-[0.25em] mb-2">Oryzza ware</p>
+                    <h3 className="font-display text-2xl md:text-3xl leading-tight">{name}</h3>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+        <p className="px-6 md:px-12 lg:px-20 mt-6 text-xs text-foreground/50 tracking-wide">← swipe →</p>
+      </Section>
+
       {/* IMPACT — SDGs */}
       <Section id="impact">
         <div className="max-w-3xl">
@@ -235,18 +414,60 @@ export default function Home() {
           })}
         </div>
 
-        {/* impact stats */}
-        <div className="mt-20 grid md:grid-cols-3 gap-10 border-t border-border pt-16">
-          {[
-            { k: "80%", v: "less water used vs. conventional moulded-fibre lines." },
-            { k: "1 tonne", v: "of agro-waste diverted from open burning per production run." },
-            { k: "0g", v: "of petrochemical plastic in any Oryzza ware. Ever." },
-          ].map((s) => (
-            <div key={s.k}>
-              <div className="text-5xl md:text-6xl font-display text-primary">{s.k}</div>
-              <p className="mt-3 text-foreground/70 max-w-xs">{s.v}</p>
-            </div>
-          ))}
+        {/* impact stats — animated count-up */}
+        <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-10 border-t border-border pt-16">
+          <Stat value={80}  suffix="%"      label="less water used vs. conventional moulded-fibre lines." />
+          <Stat value={100} suffix="%"      label="usable material — nothing in the press is wasted." />
+          <Stat value={100} suffix="%"      label="recyclable at end of life, with zero contamination." />
+          <Stat value={100} suffix="%"      label="biodegradable — home-composts in 60–90 days." />
+          <Stat value={1}   suffix=" tonne" label="of agro-waste diverted from open burning per production run." />
+          <Stat value={0}   suffix="g"      label="of petrochemical plastic in any Oryzza ware. Ever." />
+        </div>
+      </Section>
+
+      {/* QUESTIONS / FAQ */}
+      <Section id="questions" className="bg-[oklch(0.97_0.005_100)]">
+        <div className="grid md:grid-cols-12 gap-12">
+          <div className="md:col-span-5">
+            <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">Questions you might have</p>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary leading-[1.05]">
+              Ask us <span className="italic">anything.</span>
+            </h2>
+            <p className="mt-6 text-foreground/70 text-lg max-w-md">
+              The ones we hear most often. If yours isn't here, our inbox is open.
+            </p>
+            <a href={`mailto:${EMAIL}`} className="inline-block mt-6 text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary">
+              {EMAIL}
+            </a>
+          </div>
+          <div className="md:col-span-7">
+            <ul className="divide-y divide-border border-y border-border">
+              {faqs.map((f, i) => {
+                const open = openFaq === i;
+                return (
+                  <li key={f.q}>
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaq(open ? null : i)}
+                      aria-expanded={open}
+                      className="w-full flex items-start gap-6 py-6 text-left group"
+                    >
+                      <span className="font-display text-2xl text-accent shrink-0 w-10">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="flex-1 text-lg md:text-xl text-primary leading-snug">{f.q}</span>
+                      <span className={`shrink-0 mt-2 w-6 h-6 rounded-full border border-primary/40 flex items-center justify-center text-primary transition-transform duration-300 ${open ? "rotate-45" : ""}`}>
+                        <span className="block w-3 h-px bg-primary relative before:absolute before:inset-0 before:bg-primary before:rotate-90" />
+                      </span>
+                    </button>
+                    <div className={`grid transition-all duration-500 ease-out ${open ? "grid-rows-[1fr] opacity-100 pb-6" : "grid-rows-[0fr] opacity-0"}`}>
+                      <div className="overflow-hidden">
+                        <p className="pl-16 pr-8 text-foreground/75 leading-relaxed max-w-2xl">{f.a}</p>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </Section>
 
@@ -277,14 +498,25 @@ export default function Home() {
                 {EMAIL}
               </a>
             </div>
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 mt-4 rounded-full bg-bone text-primary px-7 py-3.5 text-sm tracking-wide hover:bg-bone/90 transition"
-            >
-              Start a conversation →
-            </a>
+            <div className="flex items-center gap-3">
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 rounded-full bg-bone text-primary px-7 py-3.5 text-sm tracking-wide hover:bg-bone/90 transition"
+              >
+                Start a conversation →
+              </a>
+              <a
+                href={X_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Oryzza on X (@oryzzawares)"
+                className="inline-flex items-center justify-center w-12 h-12 rounded-full border border-bone/40 text-bone hover:bg-bone/10 transition"
+              >
+                <XLogo className="w-4 h-4" />
+              </a>
+            </div>
           </div>
         </div>
       </Section>
@@ -294,9 +526,15 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6 md:px-12 lg:px-20 py-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <img src={logoGreen} alt="Oryzza" className="h-8 w-auto" />
           <p className="text-sm text-foreground/60 font-display italic">Wares of the future.</p>
-          <p className="text-xs text-foreground/50 tracking-wide">
-            © {new Date().getFullYear()} Oryzza. Made in Aba.
-          </p>
+          <div className="flex items-center gap-5">
+            <a href={X_URL} target="_blank" rel="noopener noreferrer" aria-label="Oryzza on X (@oryzzawares)"
+              className="inline-flex items-center justify-center w-9 h-9 rounded-full border border-border text-foreground/70 hover:text-primary hover:border-primary transition">
+              <XLogo className="w-3.5 h-3.5" />
+            </a>
+            <p className="text-xs text-foreground/50 tracking-wide">
+              © {new Date().getFullYear()} Oryzza. Made in Aba.
+            </p>
+          </div>
         </div>
       </footer>
     </div>
