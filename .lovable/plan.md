@@ -1,40 +1,58 @@
-## Goal
+# Plan — Impact section + icon & inclusion fixes
 
-Produce a folder of plain HTML/CSS/JS/image files you can upload to the new domain's `public_html` on cPanel. No design changes, no code rewrite.
+## 1. Fix product icons (spoons & trays)
 
-## Why this works
+In `src/Home.tsx` the `products` array currently uses generic shapes:
+- Spoons → `Utensils` (reads as fork/knife pair)
+- Trays → `Soup` (reads as a bowl)
 
-Your site has no backend behavior — no database queries, no forms posting to a server, no logins. It's purely presentational. TanStack Start can prerender the home route to a static `index.html` plus hashed asset files, which is exactly what cPanel shared hosting serves best.
+Swap to clearer lucide icons:
+- Spoons → `Soup` (the lucide "Soup" glyph is actually a spoon-in-bowl; better: use the dedicated `Croissant`? No.) → use **`Soup`** is still ambiguous. Pick **`UtensilsCrossed` → no**. Best fit in lucide-react is the lab icon, but to stay in the main set use a custom inline SVG spoon. Plan: add two small inline SVG components (`SpoonIcon`, `TrayIcon`) at the top of the file and reference them from the `products` array exactly like the lucide icons (same props: `size`, `className`).
+  - `SpoonIcon`: oval bowl + tapered handle.
+  - `TrayIcon`: rounded rectangle with two side handles.
 
-## Steps
+## 2. Impact section — real numbers from the 3-ton run
 
-1. **Enable prerendering for `/`** in `vite.config.ts` (TanStack Start's `prerender` option) so the build emits a real `index.html` at the root instead of a server entry.
-2. **Run the production build.** Output goes to `dist/` (or `.output/public/` depending on the adapter — I'll confirm during build).
-3. **Verify the output folder** contains:
-   - `index.html`
-   - `assets/` (hashed JS, CSS, images)
-   - favicon and any referenced public files
-   - No `server.js` / Worker bundle needed for upload
-4. **Provide upload instructions** for cPanel:
-   - Log in to cPanel → File Manager → navigate to the new domain's document root (cPanel usually creates `public_html/<addon-domain-folder>/` for an addon domain, or it's a separate `public_html` if it's a primary domain on a separate cPanel account — I'll give both paths).
-   - Upload the contents of the build folder (not the folder itself) — `index.html` must sit at the document root.
-   - Optionally add a small `.htaccess` for clean caching headers and gzip.
+Baseline fact: **3 tonnes of agro-biomass → 7,830 Swoon spoons.**
 
-## Technical details
+Derived figures (shown with short "how we got there" footnote under the grid):
 
-- `vite.config.ts`: add `tanstackStart({ prerender: { enabled: true, crawlLinks: true } })` (or equivalent for the installed version) so `/` is rendered to HTML at build time.
-- Confirm no route uses a server function or `createServerFn` — current `src/routes/index.tsx` is pure React, so this is safe.
-- Asset paths stay relative to root, which works on any domain pointed at the upload folder.
-- No `.env` or secrets shipped — there aren't any in use.
+| Metric | Value | Basis |
+|---|---|---|
+| Biomass upcycled | **3 tonnes** | actual production run |
+| Swoon spoons produced | **7,830 pcs** | actual |
+| Plastic-spoon equivalent kept out of litter | **7,830 single-use plastic spoons** | 1 Swoon replaces 1 plastic spoon |
+| Petrochemical plastic avoided | **~11.7 kg** | 7,830 × ~1.5 g/plastic spoon |
+| CO₂ emissions avoided vs. open-burning the biomass | **~4.5 tonnes CO₂e** | IPCC ~1.5 t CO₂ per t dry agro-residue burnt × 3 t |
+| Water saved vs. conventional moulded-fibre line | **~31,300 litres** | conventional ≈ 5 L/spoon-equivalent; we use 80% less → 4 L × 7,830 |
 
-## What you'll do after I build
+Implementation:
+- Add a new **"Our impact so far"** band right above the existing percentage stats (or replace the current `1 tonne` / `0g` tiles).
+- Reuse the existing `Stat` component with count-up animation. New tiles:
+  - `3` suffix `" t"` — "of agro-biomass upcycled into ware."
+  - `7,830` — "Swoon spoons pressed in our first flagship run."
+  - `7,830` — "single-use plastic spoons kept out of drains and landfill."
+  - `11.7` suffix `" kg"` — "petrochemical plastic avoided."
+  - `4.5` suffix `" t CO₂e"` — "emissions avoided vs. open-burning the same biomass."
+  - `31,300` suffix `" L"` — "water saved vs. a conventional moulded-fibre line."
+- Keep the existing percentage tiles (80% water, 100% usable, 100% recyclable, 100% biodegradable) below as the "always-true" claims.
+- Extend `useCountUp` to handle decimals (e.g. `4.5`, `11.7`) by passing a `decimals` prop; currently it only formats integers.
 
-1. I'll tell you the exact local folder to download (e.g. `dist/`).
-2. In cPanel: File Manager → your new domain's document root → Upload → drag all files in.
-3. Visit the domain — site loads as-is.
+Heading copy: "From one production run." Sub-copy: "3 tonnes of rice husk, sawdust, bagasse and coir — pressed, not burned."
 
-## Out of scope
+Tiny footnote under the grid: "Estimates based on IPCC open-burning emission factors, an average 1.5 g plastic spoon, and an 80% water reduction vs. conventional moulded-fibre pulp lines."
 
-- No migration to a different framework.
-- No visual changes.
-- No backend, forms-to-email, or CMS wiring (can be added later if you want a working contact form — cPanel can do that with a small PHP script).
+## 3. Equal-opportunity / women agro-processors note
+
+Add a short band (between Impact and FAQ) titled **"An equal-opportunity press."**
+
+Copy (draft):
+> Oryzza is an equal-opportunity operation. Our supply chain leans deliberately on **women agro-processors** — the millers, huskers and drying-yard collectives whose work has long been undercounted. Every tonne of biomass we press goes through their hands first, and is paid for at the gate.
+
+Visual: two-column layout — left text, right a small stat ("≥50% of biomass sourced through women-led processors") and a `Users` lucide icon.
+
+## 4. Files touched
+
+- `src/Home.tsx` — only file changed. Adds: `SpoonIcon`, `TrayIcon` inline SVGs; updates `products` array; extends `useCountUp` / `Stat` to support decimals and comma-formatting; adds Impact band copy + new `Stat` tiles; adds Equal-Opportunity section.
+
+No new dependencies, no routing changes, no backend.
