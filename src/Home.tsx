@@ -486,15 +486,56 @@ export default function Home() {
         </div>
 
         {/* impact stats — animated count-up */}
-        <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-3 gap-10 border-t border-border pt-16">
-          <Stat value={80}  suffix="%"      label="less water used vs. conventional moulded-fibre lines." />
-          <Stat value={100} suffix="%"      label="usable material — nothing in the press is wasted." />
-          <Stat value={100} suffix="%"      label="recyclable at end of life, with zero contamination." />
-          <Stat value={100} suffix="%"      label="biodegradable — home-composts in 60–90 days." />
-          <Stat value={1}   suffix=" tonne" label="of agro-waste diverted from open burning per production run." />
-          <Stat value={0}   suffix="g"      label="of petrochemical plastic in any Oryzza ware. Ever." />
+        <div className="mt-20 border-t border-border pt-16">
+          <div className="max-w-2xl mb-12">
+            <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">From one production run</p>
+            <h3 className="text-3xl md:text-4xl text-primary leading-[1.1]">
+              3 tonnes of rice husk, sawdust, bagasse and coir — <span className="italic">pressed, not burned.</span>
+            </h3>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <Stat value={3}      suffix=" t"      label="of agro-biomass upcycled into ware." />
+            <Stat value={7830}                    label="Swoon spoons pressed in our flagship run." />
+            <Stat value={7830}                    label="single-use plastic spoons kept out of drains and landfill." />
+            <Stat value={11.7}   decimals={1} suffix=" kg"      label="petrochemical plastic avoided." />
+            <Stat value={4.5}    decimals={1} suffix=" t CO₂e"  label="emissions avoided vs. open-burning the same biomass." />
+            <Stat value={31300}  suffix=" L"      label="water saved vs. a conventional moulded-fibre line." />
+          </div>
+          <p className="mt-8 text-xs text-foreground/50 max-w-3xl leading-relaxed">
+            Estimates based on IPCC open-burning emission factors (~1.5 t CO₂ per tonne of dry agro-residue), an average 1.5 g per disposable plastic spoon, and an 80% water reduction vs. conventional moulded-fibre pulp lines.
+          </p>
+
+          <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-10 border-t border-border pt-16">
+            <Stat value={80}  suffix="%" label="less water used vs. conventional moulded-fibre lines." />
+            <Stat value={100} suffix="%" label="usable material — nothing in the press is wasted." />
+            <Stat value={100} suffix="%" label="recyclable at end of life, with zero contamination." />
+            <Stat value={100} suffix="%" label="biodegradable — home-composts in 60–90 days." />
+          </div>
         </div>
       </Section>
+
+      {/* EQUAL OPPORTUNITY */}
+      <Section id="equity" className="bg-[oklch(0.97_0.01_135)]">
+        <div className="grid md:grid-cols-12 gap-12 items-center">
+          <div className="md:col-span-7">
+            <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">An equal-opportunity press</p>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary leading-[1.05]">
+              Pressed by the hands that <span className="italic">grow the grain.</span>
+            </h2>
+            <p className="mt-6 text-foreground/75 text-lg leading-relaxed max-w-2xl">
+              Oryzza is an equal-opportunity operation. Our supply chain leans deliberately on <strong className="text-primary">women agro-processors</strong> — the millers, huskers and drying-yard collectives whose work has long been undercounted. Every tonne of biomass we press goes through their hands first, and is paid for at the gate.
+            </p>
+          </div>
+          <div className="md:col-span-5">
+            <div className="bg-card border border-border p-10 shadow-soft">
+              <Users className="w-10 h-10 text-primary mb-5" strokeWidth={1.25} aria-hidden />
+              <div className="text-5xl md:text-6xl font-display text-primary">≥50%</div>
+              <p className="mt-3 text-foreground/70">of our biomass is sourced through women-led processing collectives.</p>
+            </div>
+          </div>
+        </div>
+      </Section>
+
 
       {/* QUESTIONS / FAQ */}
       <Section id="questions" className="bg-[oklch(0.97_0.005_100)]">
