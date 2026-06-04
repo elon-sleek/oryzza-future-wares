@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
   Droplets, Recycle, CloudSun, Trees, Menu, X as XClose,
-  Utensils, IceCream, Coffee, UtensilsCrossed, CircleDot, Layers, Soup,
+  IceCream, Coffee, UtensilsCrossed, CircleDot, Layers, Users,
 } from "lucide-react";
 import logoWhite from "@/assets/oryzza-logo-white.png";
 import logoGreen from "@/assets/oryzza-logo-green.png";
