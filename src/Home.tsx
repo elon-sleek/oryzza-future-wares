@@ -68,7 +68,7 @@ function useCountUp(target: number, decimals = 0, duration = 1600) {
     io.observe(ref.current);
     return () => io.disconnect();
   }, [target, duration]);
-  return { ref, display: decimals ? val.toFixed(decimals) : Math.round(val).toString() };
+  return { ref, display: decimals ? val.toFixed(decimals) : Math.round(val).toLocaleString() };
 }
 
 function Stat({ value, suffix = "", decimals = 0, label }: { value: number; suffix?: string; decimals?: number; label: string }) {
