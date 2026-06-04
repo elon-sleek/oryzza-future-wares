@@ -107,8 +107,8 @@ function Stat({ value, suffix = "", decimals = 0, label }: { value: number; suff
 const products = [
   { name: "Single-use plates", Icon: Layers,         tint: "bg-[oklch(0.55_0.12_135)]" },
   { name: "Ice cream cups",    Icon: IceCream,        tint: "bg-[oklch(0.62_0.10_85)]"  },
-  { name: "Spoons",            Icon: Utensils,        tint: "bg-[oklch(0.42_0.10_138)]" },
-  { name: "Trays",             Icon: Soup,            tint: "bg-[oklch(0.50_0.09_60)]"  },
+  { name: "Spoons",            Icon: SpoonIcon,       tint: "bg-[oklch(0.42_0.10_138)]" },
+  { name: "Trays",             Icon: TrayIcon,        tint: "bg-[oklch(0.50_0.09_60)]"  },
   { name: "Forks",             Icon: UtensilsCrossed, tint: "bg-[oklch(0.58_0.11_150)]" },
   { name: "Bottle caps",       Icon: CircleDot,       tint: "bg-[oklch(0.36_0.07_120)]" },
   { name: "Coffee lids",       Icon: Coffee,          tint: "bg-[oklch(0.45_0.08_45)]"  },
