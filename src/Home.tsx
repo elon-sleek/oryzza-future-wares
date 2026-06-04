@@ -13,6 +13,8 @@ import heroWares from "@/assets/hero-wares.jpg";
 import tableware from "@/assets/tableware-set.jpg";
 import bowlDetail from "@/assets/bowl-detail.jpg";
 import agroWaste from "@/assets/agro-waste.jpg";
+import huskHill from "@/assets/husk-hill-abakaliki.jpeg.asset.json";
+import womanRice from "@/assets/woman-rice-harvest.jpeg.asset.json";
 
 function Section({ id, children, className = "" }: { id?: string; children: React.ReactNode; className?: string }) {
   return (
@@ -370,6 +372,36 @@ export default function Home() {
                 Oryzza closes that loop.
               </p>
             </div>
+
+            {/* The husk hill of Abakaliki */}
+            <div className="mt-14 grid md:grid-cols-5 gap-8 items-center">
+              <div className="md:col-span-2">
+                <img
+                  src={huskHill.url}
+                  alt="The rice husk hill of Abakaliki, Ebonyi State — workers sift husk on a man-made mountain of rice mill waste"
+                  loading="lazy"
+                  className="w-full h-[280px] md:h-[340px] object-cover blob-3 shadow-soft"
+                />
+                <p className="mt-3 text-xs text-foreground/55 italic">The rice-husk hill of Abakaliki, Ebonyi State.</p>
+              </div>
+              <div className="md:col-span-3 space-y-5 text-base md:text-lg text-foreground/80 leading-relaxed">
+                <p className="text-accent uppercase tracking-[0.3em] text-xs">A mountain made of waste</p>
+                <p>
+                  In <span className="text-primary font-medium">Abakaliki, Ebonyi State</span>, a literal hill has risen out of rice. Since the
+                  <span className="text-primary font-medium"> mid-1970s</span>, when the Abakaliki Rice Mill cluster began processing the harvests of Nigeria's eastern
+                  belt, the husk left behind after milling has been dumped on the same ground — day after day, season after season. Half a century later
+                  it is a landmark you can see from the sky: a man-made mountain of agro-waste, picked over by women and children for a few naira a basin.
+                </p>
+                <p>
+                  Ebonyi is one of Nigeria's largest rice-producing states, and Abakaliki sits at the centre of that trade. Every tonne of paddy milled
+                  there leaves roughly <span className="text-primary font-medium">200 kg of husk</span> behind. For fifty years that husk has been burned, dumped or
+                  slowly smouldering — releasing CO₂, methane and fine soot into the air the city breathes.
+                </p>
+                <p className="text-primary font-display text-xl italic">
+                  Oryzza's first press exists to flatten that hill — one ware at a time.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </Section>
@@ -488,21 +520,21 @@ export default function Home() {
         {/* impact stats — animated count-up */}
         <div className="mt-20 border-t border-border pt-16">
           <div className="max-w-2xl mb-12">
-            <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">From one production run</p>
+            <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">Our impact so far</p>
             <h3 className="text-3xl md:text-4xl text-primary leading-[1.1]">
-              3 tonnes of rice husk, sawdust, bagasse and coir — <span className="italic">pressed, not burned.</span>
+              Since the day our first press came down — <span className="italic">a running tally of what fibre, not plastic, has done.</span>
             </h3>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-            <Stat value={3}      suffix=" t"      label="of agro-biomass upcycled into ware." />
-            <Stat value={7830}                    label="Swoon spoons pressed in our flagship run." />
+            <Stat value={3}      suffix=" t"      label="of agro-biomass upcycled into ware to date." />
+            <Stat value={7830}                    label="Swoon spoons pressed since production began." />
             <Stat value={7830}                    label="single-use plastic spoons kept out of drains and landfill." />
-            <Stat value={11.7}   decimals={1} suffix=" kg"      label="petrochemical plastic avoided." />
+            <Stat value={11.7}   decimals={1} suffix=" kg"      label="petrochemical plastic avoided to date." />
             <Stat value={4.5}    decimals={1} suffix=" t CO₂e"  label="emissions avoided vs. open-burning the same biomass." />
             <Stat value={31300}  suffix=" L"      label="water saved vs. a conventional moulded-fibre line." />
           </div>
           <p className="mt-8 text-xs text-foreground/50 max-w-3xl leading-relaxed">
-            Estimates based on IPCC open-burning emission factors (~1.5 t CO₂ per tonne of dry agro-residue), an average 1.5 g per disposable plastic spoon, and an 80% water reduction vs. conventional moulded-fibre pulp lines.
+            Cumulative since first production. Estimates based on IPCC open-burning emission factors (~1.5 t CO₂ per tonne of dry agro-residue), an average 1.5 g per disposable plastic spoon, and an 80% water reduction vs. conventional moulded-fibre pulp lines.
           </p>
 
           <div className="mt-20 grid md:grid-cols-2 lg:grid-cols-4 gap-10 border-t border-border pt-16">
@@ -517,20 +549,28 @@ export default function Home() {
       {/* EQUAL OPPORTUNITY */}
       <Section id="equity" className="bg-[oklch(0.97_0.01_135)]">
         <div className="grid md:grid-cols-12 gap-12 items-center">
-          <div className="md:col-span-7">
+          <div className="md:col-span-6">
+            <img
+              src={womanRice.url}
+              alt="A woman rice farmer in Nigeria holding a freshly harvested bundle of paddy, with other farmers working the field behind her"
+              loading="lazy"
+              className="w-full h-[420px] md:h-[520px] object-cover blob-2 shadow-soft"
+            />
+          </div>
+          <div className="md:col-span-6">
             <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">An equal-opportunity press</p>
             <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary leading-[1.05]">
               Pressed by the hands that <span className="italic">grow the grain.</span>
             </h2>
-            <p className="mt-6 text-foreground/75 text-lg leading-relaxed max-w-2xl">
-              Oryzza is an equal-opportunity operation. Our supply chain leans deliberately on <strong className="text-primary">women agro-processors</strong> — the millers, huskers and drying-yard collectives whose work has long been undercounted. Every tonne of biomass we press goes through their hands first, and is paid for at the gate.
+            <p className="mt-6 text-foreground/75 text-lg leading-relaxed">
+              Oryzza is an equal-opportunity operation. Our supply chain leans deliberately on <strong className="text-primary">women agro-processors</strong> —
+              the rice farmers, millers, huskers and drying-yard collectives of eastern Nigeria whose work has long been undercounted. Every tonne of biomass
+              we press goes through their hands first, and is paid for at the gate.
             </p>
-          </div>
-          <div className="md:col-span-5">
-            <div className="bg-card border border-border p-10 shadow-soft">
-              <Users className="w-10 h-10 text-primary mb-5" strokeWidth={1.25} aria-hidden />
+            <div className="mt-8 bg-card border border-border p-8 shadow-soft inline-flex flex-col">
+              <Users className="w-8 h-8 text-primary mb-3" strokeWidth={1.25} aria-hidden />
               <div className="text-5xl md:text-6xl font-display text-primary">≥50%</div>
-              <p className="mt-3 text-foreground/70">of our biomass is sourced through women-led processing collectives.</p>
+              <p className="mt-2 text-foreground/70 max-w-sm">of our biomass is sourced through women-led processing collectives.</p>
             </div>
           </div>
         </div>
