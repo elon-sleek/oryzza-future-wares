@@ -368,7 +368,7 @@ export default function Home() {
                 and the single-use plastic spoons — conveniences that outlive the meal by four centuries, breaking into the soils
                 and rivers our farmers depend on, and into us, before the next meal is served.
               </p>
-              <p className="text-primary font-display the-2xl italic text-2xl">
+              <p className="text-primary font-display text-2xl italic">
                 Oryzza closes that loop.
               </p>
             </div>
