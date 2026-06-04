@@ -43,6 +43,27 @@ function XLogo({ className = "" }: { className?: string }) {
   );
 }
 
+// Custom spoon icon — clearer than lucide's Utensils
+function SpoonIcon({ className = "", strokeWidth = 1.5, ...rest }: React.SVGProps<SVGSVGElement> & { strokeWidth?: number }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" aria-hidden className={className} {...rest}>
+      <ellipse cx="8.5" cy="6.5" rx="4.5" ry="3.5" />
+      <path d="M10.8 9.4 L18 20" />
+    </svg>
+  );
+}
+
+// Custom tray icon — rounded rectangle with side handles
+function TrayIcon({ className = "", strokeWidth = 1.5, ...rest }: React.SVGProps<SVGSVGElement> & { strokeWidth?: number }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" aria-hidden className={className} {...rest}>
+      <rect x="4" y="7" width="16" height="10" rx="2" />
+      <path d="M2 10 H4 M2 14 H4 M20 10 H22 M20 14 H22" />
+      <path d="M7 11 H17" opacity="0.5" />
+    </svg>
+  );
+}
+
 function useCountUp(target: number, decimals = 0, duration = 1600) {
   const [val, setVal] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
