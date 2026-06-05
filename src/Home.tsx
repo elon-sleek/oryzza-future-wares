@@ -13,8 +13,8 @@ import heroWares from "@/assets/hero-wares.jpg";
 import tableware from "@/assets/tableware-set.jpg";
 import bowlDetail from "@/assets/bowl-detail.jpg";
 import agroWaste from "@/assets/agro-waste.jpg";
-import huskHill from "@/assets/husk-hill-abakaliki.jpeg.asset.json";
-import womanRice from "@/assets/woman-rice-harvest.jpeg.asset.json";
+import huskHill from "@/assets/husk-hill-abakaliki.jpg";
+import womanRice from "@/assets/woman-rice-harvest.jpg";
 
 function Section({ id, children, className = "" }: { id?: string; children: React.ReactNode; className?: string }) {
   return (
@@ -341,7 +341,7 @@ export default function Home() {
           {/* big irregular-shaped image sitting behind */}
           <div className="relative h-[520px] md:h-[680px] overflow-hidden blob-2 shadow-leaf">
             <img
-              src={huskHill.url}
+              src={huskHill}
               alt="The rice husk hill of Abakaliki, Ebonyi State — workers sift husk on a man-made mountain of rice mill waste"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover scale-105"
@@ -530,7 +530,7 @@ export default function Home() {
           {/* big irregular-shaped image behind */}
           <div className="relative h-[560px] md:h-[680px] overflow-hidden blob-1 shadow-leaf">
             <img
-              src={womanRice.url}
+              src={womanRice}
               alt="A woman rice farmer in Nigeria holding a freshly harvested bundle of paddy, with other farmers working the field behind her"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"
