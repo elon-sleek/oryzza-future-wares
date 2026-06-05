@@ -133,51 +133,12 @@ export default function Home() {
   const [slide, setSlide] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 5000);
     return () => clearInterval(t);
   }, []);
 
-  useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    let isWrapping = false;
-
-    const handleScroll = () => {
-      if (isWrapping) return;
-
-      const scrollLeft = carousel.scrollLeft;
-      const scrollWidth = carousel.scrollWidth;
-      const clientWidth = carousel.clientWidth;
-      const maxScroll = scrollWidth - clientWidth;
-      const oneSetWidth = scrollWidth / 3;
-
-      if (scrollLeft >= maxScroll - 200) {
-        isWrapping = true;
-        carousel.scrollLeft = oneSetWidth;
-        setTimeout(() => {
-          isWrapping = false;
-        }, 50);
-      } else if (scrollLeft < 100) {
-        isWrapping = true;
-        carousel.scrollLeft = oneSetWidth - 100;
-        setTimeout(() => {
-          isWrapping = false;
-        }, 50);
-      }
-    };
-
-    setTimeout(() => {
-      const oneSetWidth = carousel.scrollWidth / 5;
-      carousel.scrollLeft = oneSetWidth;
-    }, 100);
-
-    carousel.addEventListener("scroll", handleScroll);
-    return () => carousel.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const materials = [
     "Rice husks", "Sawdust", "Bagasse",
