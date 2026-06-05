@@ -13,8 +13,8 @@ import heroWares from "@/assets/hero-wares.jpg";
 import tableware from "@/assets/tableware-set.jpg";
 import bowlDetail from "@/assets/bowl-detail.jpg";
 import agroWaste from "@/assets/agro-waste.jpg";
-import huskHill from "@/assets/husk-hill-abakaliki.jpeg.asset.json";
-import womanRice from "@/assets/woman-rice-harvest.jpeg.asset.json";
+import huskHill from "@/assets/husk-hill-abakaliki.jpg";
+import womanRice from "@/assets/woman-rice-harvest.jpg";
 
 function Section({ id, children, className = "" }: { id?: string; children: React.ReactNode; className?: string }) {
   return (
