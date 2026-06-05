@@ -333,39 +333,50 @@ export default function Home() {
                 Oryzza closes that loop.
               </p>
             </div>
+          </div>
+        </div>
 
-            {/* The husk hill of Abakaliki */}
-            <div className="mt-14 grid md:grid-cols-5 gap-8 items-center">
-              <div className="md:col-span-2">
-                <img
-                  src={huskHill.url}
-                  alt="The rice husk hill of Abakaliki, Ebonyi State — workers sift husk on a man-made mountain of rice mill waste"
-                  loading="lazy"
-                  className="w-full h-[280px] md:h-[340px] object-cover blob-3 shadow-soft"
-                />
-                <p className="mt-3 text-xs text-foreground/55 italic">The rice-husk hill of Abakaliki, Ebonyi State.</p>
-              </div>
-              <div className="md:col-span-3 space-y-5 text-base md:text-lg text-foreground/80 leading-relaxed">
-                <p className="text-accent uppercase tracking-[0.3em] text-xs">A mountain made of waste</p>
-                <p>
-                  In <span className="text-primary font-medium">Abakaliki, Ebonyi State</span>, a literal hill has risen out of rice. Since the
-                  <span className="text-primary font-medium"> mid-1970s</span>, when the Abakaliki Rice Mill cluster began processing the harvests of Nigeria's eastern
-                  belt, the husk left behind after milling has been dumped on the same ground — day after day, season after season. Half a century later
-                  it is a landmark you can see from the sky: a man-made mountain of agro-waste, picked over by women and children for a few naira a basin.
-                </p>
-                <p>
-                  Ebonyi is one of Nigeria's largest rice-producing states, and Abakaliki sits at the centre of that trade. Every tonne of paddy milled
-                  there leaves roughly <span className="text-primary font-medium">200 kg of husk</span> behind. For fifty years that husk has been burned, dumped or
-                  slowly smouldering — releasing CO₂, methane and fine soot into the air the city breathes.
-                </p>
-                <p className="text-primary font-display text-xl italic">
-                  Oryzza's first press exists to flatten that hill — one ware at a time.
-                </p>
-              </div>
+        {/* The husk hill of Abakaliki — cinematic full-width band */}
+        <div className="relative mt-28 md:mt-36">
+          {/* big irregular-shaped image sitting behind */}
+          <div className="relative h-[520px] md:h-[680px] overflow-hidden blob-2 shadow-leaf">
+            <img
+              src={huskHill.url}
+              alt="The rice husk hill of Abakaliki, Ebonyi State — workers sift husk on a man-made mountain of rice mill waste"
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/30 to-primary/10" />
+            <div className="absolute top-8 md:top-12 left-6 md:left-12">
+              <p className="text-bone/85 uppercase tracking-[0.3em] text-xs mb-3">A mountain made of waste</p>
+              <h3 className="font-display text-bone text-3xl md:text-5xl lg:text-6xl leading-[1.02] max-w-2xl text-shadow-hero">
+                The rice-husk hill of <span className="italic">Abakaliki.</span>
+              </h3>
+            </div>
+          </div>
+
+          {/* paragraph card floating downward over the image */}
+          <div className="relative md:absolute md:bottom-[-90px] md:right-6 lg:right-12 md:max-w-xl bg-card text-card-foreground blob-3 shadow-soft p-8 md:p-10 mt-[-60px] md:mt-0 mx-6 md:mx-0">
+            <div className="space-y-5 text-base text-foreground/80 leading-relaxed">
+              <p>
+                In <span className="text-primary font-medium">Abakaliki, Ebonyi State</span>, a literal hill has risen out of rice. Since the
+                <span className="text-primary font-medium"> mid-1970s</span>, when the Abakaliki rice-mill cluster began processing the harvests of Nigeria's eastern belt,
+                the husk left after milling has been dumped on the same ground — season after season. Half a century later it is a landmark visible from the sky:
+                a man-made mountain of agro-waste, picked over by women and children for a few naira a basin.
+              </p>
+              <p>
+                Ebonyi is one of Nigeria's largest rice-producing states. Every tonne of paddy milled there leaves roughly
+                <span className="text-primary font-medium"> 200 kg of husk</span> behind — burned, dumped or slowly smouldering, releasing CO₂, methane and soot into the city's air.
+              </p>
+              <p className="text-primary font-display text-xl italic">
+                Oryzza's press exists to flatten that hill — one ware at a time.
+              </p>
             </div>
           </div>
         </div>
+        <div className="hidden md:block h-32" />
       </Section>
+
 
       {/* MATERIALS */}
       <Section id="materials" className="bg-primary text-bone">
