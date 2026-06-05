@@ -129,4 +129,14 @@
     100% { opacity: 1; transform: translateY(0); }
   }
   .animate-float-up { animation: float-up 1s ease-out both; }
+
+  @keyframes marquee-x {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
+  .animate-marquee {
+    animation: marquee-x 60s linear infinite;
+    will-change: transform;
+  }
+  .animate-marquee:hover { animation-play-state: paused; }
 }
