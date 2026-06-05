@@ -352,25 +352,27 @@ export default function Home() {
 
         {/* The husk hill of Abakaliki — cinematic full-width band */}
         <div className="relative mt-28 md:mt-36">
-          {/* big irregular-shaped image sitting behind */}
-          <div className="relative h-[520px] md:h-[680px] overflow-hidden blob-2 shadow-leaf">
+          {/* big irregular-shaped image sitting behind, with slow wavy outline */}
+          <div className="relative h-[520px] md:h-[680px] overflow-hidden blob-2 animate-blob-wave shadow-leaf">
             <img
               src={huskHill}
               alt="The rice husk hill of Abakaliki, Ebonyi State — workers sift husk on a man-made mountain of rice mill waste"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/30 to-primary/10" />
-            <div className="absolute top-8 md:top-12 left-6 md:left-12">
+            {/* darker bottom gradient so the title (placed safely inside the image) stays legible */}
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-primary/10" />
+            {/* Title intentionally kept well within the image frame (padded inward to avoid blob curves) */}
+            <div className="absolute inset-x-0 bottom-0 px-10 md:px-20 pb-14 md:pb-20">
               <p className="text-bone/85 uppercase tracking-[0.3em] text-xs mb-3">A mountain made of waste</p>
-              <h3 className="font-display text-bone text-3xl md:text-5xl lg:text-6xl leading-[1.02] max-w-2xl text-shadow-hero">
+              <h3 className="font-display text-bone text-3xl md:text-5xl lg:text-6xl leading-[1.02] max-w-3xl text-shadow-hero">
                 The rice-husk hill of <span className="italic">Abakaliki.</span>
               </h3>
             </div>
           </div>
 
-          {/* paragraph card floating downward over the image */}
-          <div className="relative md:absolute md:bottom-[-90px] md:right-6 lg:right-12 md:max-w-xl bg-card text-card-foreground blob-3 shadow-soft p-8 md:p-10 mt-[-60px] md:mt-0 mx-6 md:mx-0">
+          {/* paragraph card — confined within its own irregular blob frame, floating downward over the image */}
+          <div className="relative md:absolute md:bottom-[-70px] md:right-6 lg:right-12 md:max-w-xl bg-card text-card-foreground blob-3 animate-blob-wave shadow-soft p-10 md:p-14 mt-[-60px] md:mt-0 mx-6 md:mx-0">
             <div className="space-y-5 text-base text-foreground/80 leading-relaxed">
               <p>
                 In <span className="text-primary font-medium">Abakaliki, Ebonyi State</span>, a literal hill has risen out of rice. Since the
