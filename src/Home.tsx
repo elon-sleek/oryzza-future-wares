@@ -482,27 +482,8 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {goals.map((g, i) => {
-            const Icon = g.Icon;
-            return (
-              <article
-                key={g.n}
-                className={`relative p-8 bg-card text-card-foreground border border-border ${i % 2 === 0 ? "blob-2" : "blob-1"} hover:-translate-y-1 transition duration-500 shadow-soft`}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary text-bone">
-                    <Icon className="w-6 h-6" aria-hidden />
-                  </span>
-                  <span className="text-xs uppercase tracking-[0.25em] text-foreground/60">SDG {g.n}</span>
-                </div>
-                <div className="text-6xl font-display text-accent/80 mb-3">{g.n}</div>
-                <h3 className="text-2xl text-primary mb-3">{g.t}</h3>
-                <p className="text-foreground/70 text-sm leading-relaxed">{g.d}</p>
-              </article>
-            );
-          })}
-        </div>
+        <GoalsGrid />
+
 
         {/* impact stats — animated count-up */}
         <div className="mt-20 border-t border-border pt-16">
