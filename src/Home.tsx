@@ -360,24 +360,25 @@ export default function Home() {
               src={huskHill}
               alt="The rice husk hill of Abakaliki, Ebonyi State — workers sift husk on a man-made mountain of rice mill waste"
               loading="lazy"
-              className="absolute inset-0 w-full h-full object-cover scale-105"
+              className="absolute inset-0 w-full h-full object-cover object-left"
             />
             {/* darker bottom gradient so the title (placed safely inside the image) stays legible */}
             <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-primary/10" />
             {/* Title intentionally kept well within the image frame (padded inward to avoid blob curves) */}
-            <div className="absolute inset-x-0 bottom-0 px-10 md:px-20 pb-14 md:pb-20">
-              <p className="text-bone/85 uppercase tracking-[0.3em] text-xs mb-3">A mountain made of waste</p>
+            <div className="absolute inset-x-0 top-24 px-10 md:px-20">
+              <p className="text-bone/85 uppercase tracking-[0.3em] text-xs mb-2">A mountain made of waste</p>
               <h3 className="font-display text-bone text-3xl md:text-5xl lg:text-6xl leading-[1.02] max-w-3xl text-shadow-hero">
-                The rice-husk hill of <span className="italic">Abakaliki.</span>
+                The rice-husk mount <br />
+                <span className="italic">Abakaliki.</span>
               </h3>
             </div>
           </div>
 
           {/* paragraph card — confined within its own irregular blob frame, floating downward over the image */}
-          <div className="relative md:absolute md:bottom-[-70px] md:right-6 lg:right-12 md:max-w-xl bg-card text-card-foreground blob-3 animate-blob-wave shadow-soft p-10 md:p-14 mt-[-60px] md:mt-0 mx-6 md:mx-0">
+          <div className="relative md:absolute md:bottom-[-70px] md:right-40 lg:right-56 md:max-w-xl bg-card text-card-foreground blob-3 shadow-soft p-10 md:p-14 mt-[-60px] md:mt-0 mx-6 md:mx-0">
             <div className="space-y-5 text-base text-foreground/80 leading-relaxed">
               <p>
-                In <span className="text-primary font-medium">Abakaliki, Ebonyi State</span>, a literal hill has risen out of rice. Since the
+                In <span className="text-primary font-medium">Abakaliki, Ebonyi State</span>, a literal hill has risen out of rice husks. Since the
                 <span className="text-primary font-medium"> mid-1970s</span>, when the Abakaliki rice-mill cluster began processing the harvests of Nigeria's eastern belt,
                 the husk left after milling has been dumped on the same ground — season after season. Half a century later it is a landmark visible from the sky:
                 a man-made mountain of agro-waste, picked over by women and children for a few naira a basin.
@@ -544,7 +545,7 @@ export default function Home() {
         <div className="max-w-3xl mb-12">
           <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">An equal-opportunity press</p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary leading-[1.05]">
-            Pressed by the hands that <span className="italic">grow the grain.</span>
+            Permitted by the hands that <span className="italic">grow the grain.</span>
           </h2>
         </div>
 
@@ -566,7 +567,7 @@ export default function Home() {
             <p className="text-foreground/80 leading-relaxed">
               Oryzza is an equal-opportunity operation. Our supply chain leans deliberately on
               <strong className="text-primary"> women agro-processors</strong> — the rice farmers, millers, huskers and
-              drying-yard collectives of eastern Nigeria whose work has long been undercounted. Every tonne of biomass
+              drying-yard collectives of eastern Nigeria whose work has long been undercounted. Most biomass
               we press goes through their hands first, and is paid for at the gate.
             </p>
             <div className="mt-6 flex items-center gap-4 border-t border-border pt-5">
