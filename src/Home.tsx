@@ -66,6 +66,20 @@ function TrayIcon({ className = "", strokeWidth = 1.5, ...rest }: React.SVGProps
   );
 }
 
+function useInView<T extends HTMLElement>(threshold = 0.25) {
+  const ref = useRef<T>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setInView(true); io.disconnect(); }
+    }, { threshold });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [threshold]);
+  return [ref, inView] as const;
+}
+
 function useCountUp(target: number, decimals = 0, duration = 1600) {
   const [val, setVal] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -139,6 +153,8 @@ export default function Home() {
     return () => clearInterval(t);
   }, []);
 
+
+  const [goalsRef, goalsInView] = useInView<HTMLDivElement>(0.3);
 
   const materials = [
     "Rice husks", "Sawdust", "Bagasse",
@@ -338,25 +354,27 @@ export default function Home() {
 
         {/* The husk hill of Abakaliki — cinematic full-width band */}
         <div className="relative mt-28 md:mt-36">
-          {/* big irregular-shaped image sitting behind */}
-          <div className="relative h-[520px] md:h-[680px] overflow-hidden blob-2 shadow-leaf">
+          {/* big irregular-shaped image sitting behind, with slow wavy outline */}
+          <div className="relative h-[520px] md:h-[680px] overflow-hidden blob-2 animate-blob-wave shadow-leaf">
             <img
               src={huskHill}
               alt="The rice husk hill of Abakaliki, Ebonyi State — workers sift husk on a man-made mountain of rice mill waste"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/30 to-primary/10" />
-            <div className="absolute top-8 md:top-12 left-6 md:left-12">
+            {/* darker bottom gradient so the title (placed safely inside the image) stays legible */}
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-primary/10" />
+            {/* Title intentionally kept well within the image frame (padded inward to avoid blob curves) */}
+            <div className="absolute inset-x-0 bottom-0 px-10 md:px-20 pb-14 md:pb-20">
               <p className="text-bone/85 uppercase tracking-[0.3em] text-xs mb-3">A mountain made of waste</p>
-              <h3 className="font-display text-bone text-3xl md:text-5xl lg:text-6xl leading-[1.02] max-w-2xl text-shadow-hero">
+              <h3 className="font-display text-bone text-3xl md:text-5xl lg:text-6xl leading-[1.02] max-w-3xl text-shadow-hero">
                 The rice-husk hill of <span className="italic">Abakaliki.</span>
               </h3>
             </div>
           </div>
 
-          {/* paragraph card floating downward over the image */}
-          <div className="relative md:absolute md:bottom-[-90px] md:right-6 lg:right-12 md:max-w-xl bg-card text-card-foreground blob-3 shadow-soft p-8 md:p-10 mt-[-60px] md:mt-0 mx-6 md:mx-0">
+          {/* paragraph card — confined within its own irregular blob frame, floating downward over the image */}
+          <div className="relative md:absolute md:bottom-[-70px] md:right-6 lg:right-12 md:max-w-xl bg-card text-card-foreground blob-3 animate-blob-wave shadow-soft p-10 md:p-14 mt-[-60px] md:mt-0 mx-6 md:mx-0">
             <div className="space-y-5 text-base text-foreground/80 leading-relaxed">
               <p>
                 In <span className="text-primary font-medium">Abakaliki, Ebonyi State</span>, a literal hill has risen out of rice. Since the
@@ -466,7 +484,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div ref={goalsRef} className="mt-16 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {goals.map((g, i) => {
             const Icon = g.Icon;
             return (
@@ -475,7 +493,10 @@ export default function Home() {
                 className={`relative p-8 bg-card text-card-foreground border border-border ${i % 2 === 0 ? "blob-2" : "blob-1"} hover:-translate-y-1 transition duration-500 shadow-soft`}
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary text-bone">
+                  <span
+                    className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary text-bone ${goalsInView ? "animate-tether" : ""}`}
+                    style={{ animationDelay: `${i * 0.25}s` }}
+                  >
                     <Icon className="w-6 h-6" aria-hidden />
                   </span>
                   <span className="text-xs uppercase tracking-[0.25em] text-foreground/60">SDG {g.n}</span>
@@ -487,6 +508,7 @@ export default function Home() {
             );
           })}
         </div>
+
 
         {/* impact stats — animated count-up */}
         <div className="mt-20 border-t border-border pt-16">
@@ -526,20 +548,21 @@ export default function Home() {
           </h2>
         </div>
 
-        <div className="relative">
-          {/* big irregular-shaped image behind */}
-          <div className="relative h-[560px] md:h-[680px] overflow-hidden blob-1 shadow-leaf">
+        <div className="relative pb-24 md:pb-32">
+          {/* big irregular-shaped image behind, with slow wavy outline — gradient kept off the subject's face */}
+          <div className="relative h-[560px] md:h-[680px] overflow-hidden blob-1 animate-blob-wave shadow-leaf">
             <img
               src={womanRice}
               alt="A woman rice farmer in Nigeria holding a freshly harvested bundle of paddy, with other farmers working the field behind her"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/20 to-transparent" />
+            {/* gradient now rises from the bottom-right corner only, leaving the woman's face clear */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,oklch(0.31_0.08_138/0.85),oklch(0.31_0.08_138/0.25)_45%,transparent_70%)]" />
           </div>
 
-          {/* paragraph card floating over the image, on the left */}
-          <div className="relative md:absolute md:top-1/2 md:-translate-y-1/2 md:left-6 lg:left-12 md:max-w-md bg-card text-card-foreground blob-4 shadow-soft p-8 md:p-10 mt-[-80px] md:mt-0 mx-6 md:mx-0">
+          {/* paragraph card — confined inside an irregular blob frame, parked at the bottom-right of the image */}
+          <div className="relative md:absolute md:bottom-[-40px] md:right-6 lg:right-12 md:max-w-md bg-card text-card-foreground blob-4 animate-blob-wave shadow-soft p-10 md:p-12 mt-[-80px] md:mt-0 mx-6 md:mx-0">
             <p className="text-foreground/80 leading-relaxed">
               Oryzza is an equal-opportunity operation. Our supply chain leans deliberately on
               <strong className="text-primary"> women agro-processors</strong> — the rice farmers, millers, huskers and
