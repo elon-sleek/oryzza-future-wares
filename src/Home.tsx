@@ -412,18 +412,17 @@ export default function Home() {
             What fibre can <span className="italic">become.</span>
           </h2>
           <p className="mt-6 text-foreground/70 text-lg">
-            From our agro-fibre press, an expansive family of single-use wares — each one moulded, used, and returned to soil. Swipe to explore.
+            From our agro-fibre press, an expansive family of single-use wares — each one moulded, used, and returned to soil.
           </p>
         </div>
 
-        <div ref={carouselRef} className="mt-14 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex min-w-max">
-            {[...products, ...products, ...products].map(({ name, Icon, tint }, idx) => (
+        <div className="mt-14 overflow-hidden relative [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+          <div className="flex w-max animate-marquee">
+            {[...products, ...products].map(({ name, Icon, tint }, idx) => (
               <article
                 key={`${name}-${idx}`}
-                className={`relative ${tint} text-bone snap-start shrink-0 w-[78vw] sm:w-[42vw] md:w-[28vw] lg:w-[22vw] h-[360px] md:h-[440px] overflow-hidden group`}
+                className={`relative ${tint} text-bone shrink-0 w-[78vw] sm:w-[42vw] md:w-[28vw] lg:w-[22vw] h-[360px] md:h-[440px] overflow-hidden group`}
               >
-                {/* faded background icon "sketch" */}
                 <Icon
                   className="absolute -right-10 -bottom-10 w-[300px] h-[300px] text-bone/15 group-hover:text-bone/25 transition-colors duration-700"
                   strokeWidth={1}
@@ -441,8 +440,8 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <p className="px-6 md:px-12 lg:px-20 mt-6 text-xs text-foreground/50 tracking-wide">← swipe →</p>
       </Section>
+
 
       {/* IMPACT — SDGs */}
       <Section id="impact">
