@@ -154,6 +154,8 @@ export default function Home() {
   }, []);
 
 
+  const [goalsRef, goalsInView] = useInView<HTMLDivElement>(0.3);
+
   const materials = [
     "Rice husks", "Sawdust", "Bagasse",
     "Coconut coir", "Corn husks", "Palm-kernel fiber",
