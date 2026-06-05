@@ -519,33 +519,44 @@ export default function Home() {
 
       {/* EQUAL OPPORTUNITY */}
       <Section id="equity" className="bg-[oklch(0.97_0.01_135)]">
-        <div className="grid md:grid-cols-12 gap-12 items-center">
-          <div className="md:col-span-6">
+        <div className="max-w-3xl mb-12">
+          <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">An equal-opportunity press</p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary leading-[1.05]">
+            Pressed by the hands that <span className="italic">grow the grain.</span>
+          </h2>
+        </div>
+
+        <div className="relative">
+          {/* big irregular-shaped image behind */}
+          <div className="relative h-[560px] md:h-[680px] overflow-hidden blob-1 shadow-leaf">
             <img
               src={womanRice.url}
               alt="A woman rice farmer in Nigeria holding a freshly harvested bundle of paddy, with other farmers working the field behind her"
               loading="lazy"
-              className="w-full h-[420px] md:h-[520px] object-cover blob-2 shadow-soft"
+              className="absolute inset-0 w-full h-full object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/20 to-transparent" />
           </div>
-          <div className="md:col-span-6">
-            <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">An equal-opportunity press</p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary leading-[1.05]">
-              Pressed by the hands that <span className="italic">grow the grain.</span>
-            </h2>
-            <p className="mt-6 text-foreground/75 text-lg leading-relaxed">
-              Oryzza is an equal-opportunity operation. Our supply chain leans deliberately on <strong className="text-primary">women agro-processors</strong> —
-              the rice farmers, millers, huskers and drying-yard collectives of eastern Nigeria whose work has long been undercounted. Every tonne of biomass
+
+          {/* paragraph card floating over the image, on the left */}
+          <div className="relative md:absolute md:top-1/2 md:-translate-y-1/2 md:left-6 lg:left-12 md:max-w-md bg-card text-card-foreground blob-4 shadow-soft p-8 md:p-10 mt-[-80px] md:mt-0 mx-6 md:mx-0">
+            <p className="text-foreground/80 leading-relaxed">
+              Oryzza is an equal-opportunity operation. Our supply chain leans deliberately on
+              <strong className="text-primary"> women agro-processors</strong> — the rice farmers, millers, huskers and
+              drying-yard collectives of eastern Nigeria whose work has long been undercounted. Every tonne of biomass
               we press goes through their hands first, and is paid for at the gate.
             </p>
-            <div className="mt-8 bg-card border border-border p-8 shadow-soft inline-flex flex-col">
-              <Users className="w-8 h-8 text-primary mb-3" strokeWidth={1.25} aria-hidden />
-              <div className="text-5xl md:text-6xl font-display text-primary">≥50%</div>
-              <p className="mt-2 text-foreground/70 max-w-sm">of our biomass is sourced through women-led processing collectives.</p>
+            <div className="mt-6 flex items-center gap-4 border-t border-border pt-5">
+              <Users className="w-8 h-8 text-primary shrink-0" strokeWidth={1.25} aria-hidden />
+              <div>
+                <div className="text-3xl font-display text-primary leading-none">≥50%</div>
+                <p className="mt-1 text-xs text-foreground/65">of biomass sourced through women-led collectives.</p>
+              </div>
             </div>
           </div>
         </div>
       </Section>
+
 
 
       {/* QUESTIONS / FAQ */}
