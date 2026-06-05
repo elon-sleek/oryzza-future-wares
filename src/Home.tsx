@@ -66,6 +66,20 @@ function TrayIcon({ className = "", strokeWidth = 1.5, ...rest }: React.SVGProps
   );
 }
 
+function useInView<T extends HTMLElement>(threshold = 0.25) {
+  const ref = useRef<T>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { setInView(true); io.disconnect(); }
+    }, { threshold });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [threshold]);
+  return [ref, inView] as const;
+}
+
 function useCountUp(target: number, decimals = 0, duration = 1600) {
   const [val, setVal] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
