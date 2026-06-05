@@ -133,51 +133,12 @@ export default function Home() {
   const [slide, setSlide] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const t = setInterval(() => setSlide((s) => (s + 1) % heroSlides.length), 5000);
     return () => clearInterval(t);
   }, []);
 
-  useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    let isWrapping = false;
-
-    const handleScroll = () => {
-      if (isWrapping) return;
-
-      const scrollLeft = carousel.scrollLeft;
-      const scrollWidth = carousel.scrollWidth;
-      const clientWidth = carousel.clientWidth;
-      const maxScroll = scrollWidth - clientWidth;
-      const oneSetWidth = scrollWidth / 3;
-
-      if (scrollLeft >= maxScroll - 200) {
-        isWrapping = true;
-        carousel.scrollLeft = oneSetWidth;
-        setTimeout(() => {
-          isWrapping = false;
-        }, 50);
-      } else if (scrollLeft < 100) {
-        isWrapping = true;
-        carousel.scrollLeft = oneSetWidth - 100;
-        setTimeout(() => {
-          isWrapping = false;
-        }, 50);
-      }
-    };
-
-    setTimeout(() => {
-      const oneSetWidth = carousel.scrollWidth / 5;
-      carousel.scrollLeft = oneSetWidth;
-    }, 100);
-
-    carousel.addEventListener("scroll", handleScroll);
-    return () => carousel.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const materials = [
     "Rice husks", "Sawdust", "Bagasse",
@@ -372,39 +333,50 @@ export default function Home() {
                 Oryzza closes that loop.
               </p>
             </div>
+          </div>
+        </div>
 
-            {/* The husk hill of Abakaliki */}
-            <div className="mt-14 grid md:grid-cols-5 gap-8 items-center">
-              <div className="md:col-span-2">
-                <img
-                  src={huskHill.url}
-                  alt="The rice husk hill of Abakaliki, Ebonyi State — workers sift husk on a man-made mountain of rice mill waste"
-                  loading="lazy"
-                  className="w-full h-[280px] md:h-[340px] object-cover blob-3 shadow-soft"
-                />
-                <p className="mt-3 text-xs text-foreground/55 italic">The rice-husk hill of Abakaliki, Ebonyi State.</p>
-              </div>
-              <div className="md:col-span-3 space-y-5 text-base md:text-lg text-foreground/80 leading-relaxed">
-                <p className="text-accent uppercase tracking-[0.3em] text-xs">A mountain made of waste</p>
-                <p>
-                  In <span className="text-primary font-medium">Abakaliki, Ebonyi State</span>, a literal hill has risen out of rice. Since the
-                  <span className="text-primary font-medium"> mid-1970s</span>, when the Abakaliki Rice Mill cluster began processing the harvests of Nigeria's eastern
-                  belt, the husk left behind after milling has been dumped on the same ground — day after day, season after season. Half a century later
-                  it is a landmark you can see from the sky: a man-made mountain of agro-waste, picked over by women and children for a few naira a basin.
-                </p>
-                <p>
-                  Ebonyi is one of Nigeria's largest rice-producing states, and Abakaliki sits at the centre of that trade. Every tonne of paddy milled
-                  there leaves roughly <span className="text-primary font-medium">200 kg of husk</span> behind. For fifty years that husk has been burned, dumped or
-                  slowly smouldering — releasing CO₂, methane and fine soot into the air the city breathes.
-                </p>
-                <p className="text-primary font-display text-xl italic">
-                  Oryzza's first press exists to flatten that hill — one ware at a time.
-                </p>
-              </div>
+        {/* The husk hill of Abakaliki — cinematic full-width band */}
+        <div className="relative mt-28 md:mt-36">
+          {/* big irregular-shaped image sitting behind */}
+          <div className="relative h-[520px] md:h-[680px] overflow-hidden blob-2 shadow-leaf">
+            <img
+              src={huskHill.url}
+              alt="The rice husk hill of Abakaliki, Ebonyi State — workers sift husk on a man-made mountain of rice mill waste"
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/30 to-primary/10" />
+            <div className="absolute top-8 md:top-12 left-6 md:left-12">
+              <p className="text-bone/85 uppercase tracking-[0.3em] text-xs mb-3">A mountain made of waste</p>
+              <h3 className="font-display text-bone text-3xl md:text-5xl lg:text-6xl leading-[1.02] max-w-2xl text-shadow-hero">
+                The rice-husk hill of <span className="italic">Abakaliki.</span>
+              </h3>
+            </div>
+          </div>
+
+          {/* paragraph card floating downward over the image */}
+          <div className="relative md:absolute md:bottom-[-90px] md:right-6 lg:right-12 md:max-w-xl bg-card text-card-foreground blob-3 shadow-soft p-8 md:p-10 mt-[-60px] md:mt-0 mx-6 md:mx-0">
+            <div className="space-y-5 text-base text-foreground/80 leading-relaxed">
+              <p>
+                In <span className="text-primary font-medium">Abakaliki, Ebonyi State</span>, a literal hill has risen out of rice. Since the
+                <span className="text-primary font-medium"> mid-1970s</span>, when the Abakaliki rice-mill cluster began processing the harvests of Nigeria's eastern belt,
+                the husk left after milling has been dumped on the same ground — season after season. Half a century later it is a landmark visible from the sky:
+                a man-made mountain of agro-waste, picked over by women and children for a few naira a basin.
+              </p>
+              <p>
+                Ebonyi is one of Nigeria's largest rice-producing states. Every tonne of paddy milled there leaves roughly
+                <span className="text-primary font-medium"> 200 kg of husk</span> behind — burned, dumped or slowly smouldering, releasing CO₂, methane and soot into the city's air.
+              </p>
+              <p className="text-primary font-display text-xl italic">
+                Oryzza's press exists to flatten that hill — one ware at a time.
+              </p>
             </div>
           </div>
         </div>
+        <div className="hidden md:block h-32" />
       </Section>
+
 
       {/* MATERIALS */}
       <Section id="materials" className="bg-primary text-bone">
@@ -451,18 +423,17 @@ export default function Home() {
             What fibre can <span className="italic">become.</span>
           </h2>
           <p className="mt-6 text-foreground/70 text-lg">
-            From our agro-fibre press, an expansive family of single-use wares — each one moulded, used, and returned to soil. Swipe to explore.
+            From our agro-fibre press, an expansive family of single-use wares — each one moulded, used, and returned to soil.
           </p>
         </div>
 
-        <div ref={carouselRef} className="mt-14 overflow-x-auto overflow-y-hidden snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex min-w-max">
-            {[...products, ...products, ...products].map(({ name, Icon, tint }, idx) => (
+        <div className="mt-14 overflow-hidden relative [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+          <div className="flex w-max animate-marquee">
+            {[...products, ...products].map(({ name, Icon, tint }, idx) => (
               <article
                 key={`${name}-${idx}`}
-                className={`relative ${tint} text-bone snap-start shrink-0 w-[78vw] sm:w-[42vw] md:w-[28vw] lg:w-[22vw] h-[360px] md:h-[440px] overflow-hidden group`}
+                className={`relative ${tint} text-bone shrink-0 w-[78vw] sm:w-[42vw] md:w-[28vw] lg:w-[22vw] h-[360px] md:h-[440px] overflow-hidden group`}
               >
-                {/* faded background icon "sketch" */}
                 <Icon
                   className="absolute -right-10 -bottom-10 w-[300px] h-[300px] text-bone/15 group-hover:text-bone/25 transition-colors duration-700"
                   strokeWidth={1}
@@ -480,8 +451,8 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <p className="px-6 md:px-12 lg:px-20 mt-6 text-xs text-foreground/50 tracking-wide">← swipe →</p>
       </Section>
+
 
       {/* IMPACT — SDGs */}
       <Section id="impact">
@@ -548,33 +519,44 @@ export default function Home() {
 
       {/* EQUAL OPPORTUNITY */}
       <Section id="equity" className="bg-[oklch(0.97_0.01_135)]">
-        <div className="grid md:grid-cols-12 gap-12 items-center">
-          <div className="md:col-span-6">
+        <div className="max-w-3xl mb-12">
+          <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">An equal-opportunity press</p>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary leading-[1.05]">
+            Pressed by the hands that <span className="italic">grow the grain.</span>
+          </h2>
+        </div>
+
+        <div className="relative">
+          {/* big irregular-shaped image behind */}
+          <div className="relative h-[560px] md:h-[680px] overflow-hidden blob-1 shadow-leaf">
             <img
               src={womanRice.url}
               alt="A woman rice farmer in Nigeria holding a freshly harvested bundle of paddy, with other farmers working the field behind her"
               loading="lazy"
-              className="w-full h-[420px] md:h-[520px] object-cover blob-2 shadow-soft"
+              className="absolute inset-0 w-full h-full object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/20 to-transparent" />
           </div>
-          <div className="md:col-span-6">
-            <p className="text-accent uppercase tracking-[0.3em] text-xs mb-5">An equal-opportunity press</p>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl text-primary leading-[1.05]">
-              Pressed by the hands that <span className="italic">grow the grain.</span>
-            </h2>
-            <p className="mt-6 text-foreground/75 text-lg leading-relaxed">
-              Oryzza is an equal-opportunity operation. Our supply chain leans deliberately on <strong className="text-primary">women agro-processors</strong> —
-              the rice farmers, millers, huskers and drying-yard collectives of eastern Nigeria whose work has long been undercounted. Every tonne of biomass
+
+          {/* paragraph card floating over the image, on the left */}
+          <div className="relative md:absolute md:top-1/2 md:-translate-y-1/2 md:left-6 lg:left-12 md:max-w-md bg-card text-card-foreground blob-4 shadow-soft p-8 md:p-10 mt-[-80px] md:mt-0 mx-6 md:mx-0">
+            <p className="text-foreground/80 leading-relaxed">
+              Oryzza is an equal-opportunity operation. Our supply chain leans deliberately on
+              <strong className="text-primary"> women agro-processors</strong> — the rice farmers, millers, huskers and
+              drying-yard collectives of eastern Nigeria whose work has long been undercounted. Every tonne of biomass
               we press goes through their hands first, and is paid for at the gate.
             </p>
-            <div className="mt-8 bg-card border border-border p-8 shadow-soft inline-flex flex-col">
-              <Users className="w-8 h-8 text-primary mb-3" strokeWidth={1.25} aria-hidden />
-              <div className="text-5xl md:text-6xl font-display text-primary">≥50%</div>
-              <p className="mt-2 text-foreground/70 max-w-sm">of our biomass is sourced through women-led processing collectives.</p>
+            <div className="mt-6 flex items-center gap-4 border-t border-border pt-5">
+              <Users className="w-8 h-8 text-primary shrink-0" strokeWidth={1.25} aria-hidden />
+              <div>
+                <div className="text-3xl font-display text-primary leading-none">≥50%</div>
+                <p className="mt-1 text-xs text-foreground/65">of biomass sourced through women-led collectives.</p>
+              </div>
             </div>
           </div>
         </div>
       </Section>
+
 
 
       {/* QUESTIONS / FAQ */}
