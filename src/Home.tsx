@@ -548,20 +548,21 @@ export default function Home() {
           </h2>
         </div>
 
-        <div className="relative">
-          {/* big irregular-shaped image behind */}
-          <div className="relative h-[560px] md:h-[680px] overflow-hidden blob-1 shadow-leaf">
+        <div className="relative pb-24 md:pb-32">
+          {/* big irregular-shaped image behind, with slow wavy outline — gradient kept off the subject's face */}
+          <div className="relative h-[560px] md:h-[680px] overflow-hidden blob-1 animate-blob-wave shadow-leaf">
             <img
               src={womanRice}
               alt="A woman rice farmer in Nigeria holding a freshly harvested bundle of paddy, with other farmers working the field behind her"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/20 to-transparent" />
+            {/* gradient now rises from the bottom-right corner only, leaving the woman's face clear */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,oklch(0.31_0.08_138/0.85),oklch(0.31_0.08_138/0.25)_45%,transparent_70%)]" />
           </div>
 
-          {/* paragraph card floating over the image, on the left */}
-          <div className="relative md:absolute md:top-1/2 md:-translate-y-1/2 md:left-6 lg:left-12 md:max-w-md bg-card text-card-foreground blob-4 shadow-soft p-8 md:p-10 mt-[-80px] md:mt-0 mx-6 md:mx-0">
+          {/* paragraph card — confined inside an irregular blob frame, parked at the bottom-right of the image */}
+          <div className="relative md:absolute md:bottom-[-40px] md:right-6 lg:right-12 md:max-w-md bg-card text-card-foreground blob-4 animate-blob-wave shadow-soft p-10 md:p-12 mt-[-80px] md:mt-0 mx-6 md:mx-0">
             <p className="text-foreground/80 leading-relaxed">
               Oryzza is an equal-opportunity operation. Our supply chain leans deliberately on
               <strong className="text-primary"> women agro-processors</strong> — the rice farmers, millers, huskers and
